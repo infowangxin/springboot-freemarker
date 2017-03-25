@@ -26,7 +26,5 @@ public class MainController {
     String topnav() {
         return "topnav";
     }
-    
-    
 
 }

@@ -29,9 +29,9 @@ public class ApplicationTests {
         News news = null;
         for (int i = 1; i < 1001; i++) {
             news = new News();
-            news.setTitle("test" + i);
-            news.setDescription("test" + i);
-            news.setAddress("test" + i);
+            news.setTitle("db_2_" + i);
+            news.setDescription("db_2_" + i);
+            news.setAddress("db_2_" + i);
             news.setNewsTime(Calendar.getInstance().getTime());
             newsService.addNews(news);
         }

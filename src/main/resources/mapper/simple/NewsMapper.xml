@@ -13,8 +13,7 @@
 	</resultMap>
 
 	<insert id="insert" parameterType="cn.springboot.model.simple.News">
-		INSERT INTO T_NEWS(ID , ADDRESS , CREATE_TIME , DESCRIPTION , NEWS_TIME , TITLE)
-		VALUES(#{id} , #{address} , #{createTime} , #{description} , #{newsTime} , #{title})
+		INSERT INTO T_NEWS(ID , ADDRESS , CREATE_TIME , DESCRIPTION , NEWS_TIME , TITLE) VALUES(#{id} , #{address} , #{createTime} , #{description} , #{newsTime} , #{title})
 	</insert>
 
 	<sql id="find_xxx">
@@ -55,7 +54,7 @@
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
 		<where>
-			<if test="keywords != null and keywords != ''"> title like '%${keywords}%'</if>
+			<if test="keywords != null and keywords != ''"> title=${keywords}</if>
 		</where>
 		order by create_time desc
 	</select>
@@ -81,21 +80,6 @@
 		</set>
 		WHERE ID = #{id}
 	</update>
-
-	<select id="findAllByFilter" parameterType="Map" resultMap="newsMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		<include refid="where_xxx" />
-		<if test="start != null and limit != null">
-			LIMIT #{start},#{limit}
-		</if>
-	</select>
-
-	<select id="findAllByFilterCount" parameterType="Map" resultType="int">
-		SELECT COUNT(id)
-		<include refid="from_xxx" />
-		<include refid="where_xxx" />
-	</select>
 
 	<delete id="delete" parameterType="string">
 		DELETE FROM T_NEWS WHERE ID #{id}

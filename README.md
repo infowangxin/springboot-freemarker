@@ -5,7 +5,7 @@
 #### springboot-mybatis
 
 + 包含框架有：SpringBoot、SpringMVC、MyBaits、Bootstrap3、Druid、Freemarker；
-+ 集成示例有：增删改查及分页;
++ 集成示例有：增删改查及分页;防XSS、SQL注入；
 
 #### 示例启动
   

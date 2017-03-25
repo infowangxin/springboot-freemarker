@@ -124,6 +124,7 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
         dsMap.put("url", propertyResolver.getProperty("url"));
         dsMap.put("username", propertyResolver.getProperty("username"));
         dsMap.put("password", propertyResolver.getProperty("password"));
+        dsMap.put("validationQuery", propertyResolver.getProperty("validationQuery"));
         defaultDataSource = buildDataSource(dsMap, env);
         dataBinder(defaultDataSource, env);
     }

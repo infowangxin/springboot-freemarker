@@ -33,6 +33,7 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     private NewsMapper newsMapper;
 
+    @TargetDataSource(DataSourceEnum.DB2)
     @Override
     public boolean addNews(News news) {
         if (news != null) {
