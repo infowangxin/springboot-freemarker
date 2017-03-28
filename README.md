@@ -10,6 +10,7 @@
 #### 示例启动
   
 + 启动工程；
++ 运行cn.springboot.Application当中的main方法；
 + 浏览器访问工程查看示例效果；
 
 欢迎[交流讨论](http://git.oschina.net/wangxinforme/springboot-freemarker/issues)

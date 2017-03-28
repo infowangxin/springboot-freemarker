@@ -52,6 +52,6 @@ public class XSSSecurityConstants {
 	/**
 	 * FILTER_ERROR_PAGE:过滤后错误页面
 	 */
-	public static String FILTER_ERROR_PAGE = "/WEB-INF/views/common/error.jsp";
+	public static String FILTER_ERROR_PAGE = "/error";
 
 }

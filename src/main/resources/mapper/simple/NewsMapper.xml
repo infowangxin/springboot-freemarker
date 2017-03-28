@@ -54,7 +54,7 @@
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
 		<where>
-			<if test="keywords != null and keywords != ''"> title=${keywords}</if>
+			<if test="keywords != null and keywords != ''"> title like '%${keywords}%'</if>
 		</where>
 		order by create_time desc
 	</select>

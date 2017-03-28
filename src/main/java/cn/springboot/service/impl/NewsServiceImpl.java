@@ -8,11 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import cn.springboot.common.constants.Constants;
+import cn.springboot.common.exception.BusinessException;
 import cn.springboot.common.util.UUIDUtil;
 import cn.springboot.config.datasource.DataSourceEnum;
 import cn.springboot.config.datasource.TargetDataSource;
@@ -33,13 +35,15 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     private NewsMapper newsMapper;
 
-    @TargetDataSource(DataSourceEnum.DB2)
+    @Transactional
     @Override
     public boolean addNews(News news) {
         if (news != null) {
             news.setId(UUIDUtil.getRandom32PK());
             news.setCreateTime(Calendar.getInstance().getTime());
             int flag = newsMapper.insert(news);
+            if (StringUtils.equals(news.getTitle(), "a"))
+                throw new BusinessException("001", "测试事务回溯");
             if (flag == 1)
                 return true;
             else

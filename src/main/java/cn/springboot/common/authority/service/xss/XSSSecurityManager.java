@@ -1,5 +1,7 @@
 package cn.springboot.common.authority.service.xss;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,6 +16,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 
 /** 
  * @Description 安全过滤配置管理类
@@ -56,16 +59,17 @@ public class XSSSecurityManager {
 
         log.debug("XSSSecurityManager init(FilterConfig config) begin");
         // 初始化过滤配置文件
-        String xssPath = config.getServletContext().getRealPath("/") + config.getInitParameter("securityconfig");
-
+        org.springframework.core.io.Resource res = new ClassPathResource(config.getInitParameter("securityconfig"));
+        log.debug("xss classpath={}", config.getInitParameter("securityconfig"));
         // 初始化安全过滤配置
         try {
-            if (initConfig(xssPath)) {
+            if (initConfig(res.getInputStream())) {
                 // 生成匹配器
                 XSS_PATTERN = Pattern.compile(REGEX);
-
-                for (Map matchMap : checkUrlMatcherList) {
-                    log.debug("特殊URL过滤匹配规则" + matchMap);
+                if (log.isDebugEnabled()) {
+                    for (Map matchMap : checkUrlMatcherList) {
+                        log.debug("特殊URL过滤匹配规则" + matchMap);
+                    }
                 }
 
             } else {
@@ -73,6 +77,9 @@ public class XSSSecurityManager {
                 throw new RuntimeException("初始化XSS配置失败!");
             }
         } catch (DocumentException e) {
+            log.debug("安全过滤配置文件xss_security_config.xml加载异常");
+            e.printStackTrace();
+        } catch (IOException e) {
             log.debug("安全过滤配置文件xss_security_config.xml加载异常");
             e.printStackTrace();
         }
@@ -88,10 +95,9 @@ public class XSSSecurityManager {
      * @throws DocumentException
      */
     @SuppressWarnings("unchecked")
-    public static boolean initConfig(String path) throws DocumentException {
-
-        log.debug("XSSSecurityManager.initConfig(String path) begin");
-        Element superElement = new SAXReader().read(path).getRootElement();
+    public static boolean initConfig(InputStream in) throws DocumentException {
+        log.debug("XSSSecurityManager.initConfig(InputStream in) begin");
+        Element superElement = new SAXReader().read(in).getRootElement();
         XSSSecurityConfig.IS_CHECK_HEADER = new Boolean(getEleValue(superElement, XSSSecurityConstants.IS_CHECK_HEADER));
         XSSSecurityConfig.IS_CHECK_PARAMETER = new Boolean(getEleValue(superElement, XSSSecurityConstants.IS_CHECK_PARAMETER));
         XSSSecurityConfig.IS_CHECK_URL = new Boolean(getEleValue(superElement, XSSSecurityConstants.IS_CHECK_URL));

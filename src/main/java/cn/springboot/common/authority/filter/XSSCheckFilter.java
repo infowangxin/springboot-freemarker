@@ -38,13 +38,30 @@ public class XSSCheckFilter implements Filter {
 
     /******************** xss攻击防注入参数 begin ************************/
     // 出错跳转的目的地
-    public final static String XSS_ERROR_PATH = "/WEB-INF/views/common/error.jsp";
+    public final static String XSS_ERROR_PATH = "/templates/common/error.ftl";
     // 不进行拦截的url
     public final static String XSS_EXCLUDE_PATHS = "";
     // 需要拦截的JS字符关键字
     public final static String XSS_SAFELESS = "<script, </script, <iframe, </iframe, <frame, </frame, set-cookie, %3cscript, %3c/script, %3ciframe, %3c/iframe, %3cframe, %3c/frame, src=\"javascript:, <body, </body, %3cbody, %3c/body, <, >, </, />, %3c, %3e, %3c/, /%3e";
 
     /******************** xss攻击防注入参数 end ************************/
+
+    public void init(FilterConfig config) throws ServletException {
+        this.config = config;
+        try {
+            errorPath = XSS_ERROR_PATH;
+            String excludePath = XSS_EXCLUDE_PATHS;
+            if (!"".equals(excludePath) && null != excludePath)
+                excludePaths = excludePath.split(",");
+            String safeles = XSS_SAFELESS;
+            if (!"".equals(safeles) && null != safeles) {
+                safeless = safeles.split(",");
+                log.debug(safeless.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @SuppressWarnings("rawtypes")
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain filterChain) throws IOException, ServletException {
@@ -56,8 +73,9 @@ public class XSSCheckFilter implements Filter {
         if (isSafe(requestUrl)) {
             requestUrl = requestUrl.substring(requestUrl.indexOf("/"));
             if (!excludeUrl(requestUrl)) {
+                String cache = "";
                 while (params.hasMoreElements()) {
-                    String cache = req.getParameter((String) params.nextElement());
+                    cache = req.getParameter((String) params.nextElement());
                     if (!"".equals(cache) && null != cache) {
                         if (!isSafe(cache)) {
                             isSafe = false;
@@ -71,6 +89,7 @@ public class XSSCheckFilter implements Filter {
         }
         if (!isSafe) {
             request.setAttribute("err", "您输入的参数有非法字符，请输入正确的参数！");
+            request.setAttribute("pageUrl",request.getRequestURI());
             request.getRequestDispatcher(errorPath).forward(request, response);
             return;
         }
@@ -100,20 +119,4 @@ public class XSSCheckFilter implements Filter {
     public void destroy() {
     }
 
-    public void init(FilterConfig config) throws ServletException {
-        this.config = config;
-        try {
-            errorPath = XSS_ERROR_PATH;
-            String excludePath = XSS_EXCLUDE_PATHS;
-            if (!"".equals(excludePath) && null != excludePath)
-                excludePaths = excludePath.split(",");
-            String safeles = XSS_SAFELESS;
-            if (!"".equals(safeles) && null != safeles) {
-                safeless = safeles.split(",");
-                log.debug(safeless.toString());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -17,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import cn.springboot.common.authority.service.xss.XSSSecurityConstants;
 
 /** 
  * @Description 防止SQL注入
@@ -29,8 +30,6 @@ public class SQLInjectionFilterServlet implements Filter {
     private static final Logger log = LoggerFactory.getLogger(SQLInjectionFilterServlet.class);
 
     private String regularExpression;
-
-    public final static String XSS_ERROR_PATH = "/WEB-INF/views/common/error.jsp";
 
     public SQLInjectionFilterServlet() {
 
@@ -60,8 +59,9 @@ public class SQLInjectionFilterServlet implements Filter {
             for (int i = 0; i < value.length; i++) {
                 if (null != value[i] && value[i].matches(regularExpression)) {
                     log.info("#疑似SQL注入攻击！参数名称：{}；录入信息:{}", entry.getKey(), value[i]);
-                    RequestDispatcher rd = request.getRequestDispatcher(XSS_ERROR_PATH);
-                    rd.forward(request, response);
+                    request.setAttribute("err", "您输入的参数有非法字符，请输入正确的参数！");
+                    request.setAttribute("pageUrl",req.getRequestURI());
+                    request.getRequestDispatcher(request.getServletContext().getContextPath() + XSSSecurityConstants.FILTER_ERROR_PAGE).forward(request, response);
                     return;
                 }
             }
