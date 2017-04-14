@@ -1,9 +1,9 @@
-CREATE TABLE T_NEWS (
-	ID VARCHAR NOT NULL,
-	ADDRESS VARCHAR,
-	CREATE_TIME TIMESTAMP,
-	DESCRIPTION VARCHAR,
-	NEWS_TIME TIMESTAMP,
-	TITLE VARCHAR,
-	PRIMARY KEY (ID)
+create table t_news (
+	id varchar not null,
+	address varchar,
+	create_time timestamp,
+	description varchar,
+	news_time timestamp,
+	title varchar,
+	primary key (id)
 );

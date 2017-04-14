@@ -1,36 +1,36 @@
 /*
- Navicat Premium Data Transfer
+ navicat premium data transfer
 
- Source Server         : localhost
- Source Server Type    : MySQL
- Source Server Version : 50716
- Source Host           : localhost
- Source Database       : demo
+ source server         : localhost
+ source server type    : mysql
+ source server version : 50716
+ source host           : localhost
+ source database       : demo
 
- Target Server Type    : MySQL
- Target Server Version : 50716
- File Encoding         : utf-8
+ target server type    : mysql
+ target server version : 50716
+ file encoding         : utf-8
 
- Date: 03/17/2017 09:30:47 AM
+ date: 03/17/2017 09:30:47 am
 */
 
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
+set names utf8mb4;
+set foreign_key_checks = 0;
 
 -- ----------------------------
---  Table structure for `t_news`
+--  table structure for `t_news`
 -- ----------------------------
-DROP TABLE IF EXISTS `t_news`;
-CREATE TABLE `t_news` (
-  `id` varchar(255) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `news_time` datetime DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+drop table if exists `t_news`;
+create table `t_news` (
+  `id` varchar(255) not null,
+  `address` varchar(255) default null,
+  `create_time` datetime default null,
+  `description` varchar(255) default null,
+  `news_time` datetime default null,
+  `title` varchar(255) default null,
+  primary key (`id`)
+) engine=innodb default charset=utf8mb4;
 
-SET FOREIGN_KEY_CHECKS = 1;
+set foreign_key_checks = 1;
 
 insert into t_news(id,address,create_time,description,news_time,title) values('8d797e202bd94f8b858d9b73af6b627u','测试多数据源1',now(),'测试多数据源1',now(),'测试多数据源1');

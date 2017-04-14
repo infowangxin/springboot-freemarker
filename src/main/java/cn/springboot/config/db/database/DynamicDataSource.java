@@ -1,4 +1,4 @@
-package cn.springboot.config.datasource;
+package cn.springboot.config.db.database;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 

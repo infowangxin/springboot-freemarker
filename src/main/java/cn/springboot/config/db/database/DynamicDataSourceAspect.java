@@ -1,4 +1,4 @@
-package cn.springboot.config.datasource;
+package cn.springboot.config.db.database;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;

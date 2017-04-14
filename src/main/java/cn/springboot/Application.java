@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import cn.springboot.config.datasource.DynamicDataSourceRegister;
+import cn.springboot.config.db.database.DynamicDataSourceRegister;
 
 @Import({ DynamicDataSourceRegister.class })
 @EnableTransactionManagement

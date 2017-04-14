@@ -1,4 +1,4 @@
-package cn.springboot.config.datasource;
+package cn.springboot.config.db.database;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

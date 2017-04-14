@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 
 import cn.springboot.model.simple.News;
-import cn.springboot.service.NewsService;
+import cn.springboot.service.simple.NewsService;
 
 /** 
  * @Description 新闻示例

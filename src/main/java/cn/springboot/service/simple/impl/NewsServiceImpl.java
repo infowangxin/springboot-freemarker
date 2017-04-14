@@ -1,4 +1,4 @@
-package cn.springboot.service.impl;
+package cn.springboot.service.simple.impl;
 
 import java.util.Calendar;
 import java.util.List;
@@ -15,12 +15,13 @@ import com.github.pagehelper.PageInfo;
 
 import cn.springboot.common.constants.Constants;
 import cn.springboot.common.exception.BusinessException;
-import cn.springboot.common.util.UUIDUtil;
-import cn.springboot.config.datasource.DataSourceEnum;
-import cn.springboot.config.datasource.TargetDataSource;
+import cn.springboot.config.db.database.DataSourceEnum;
+import cn.springboot.config.db.database.TargetDataSource;
+import cn.springboot.config.db.table.FactoryAboutKey;
+import cn.springboot.config.db.table.TablesPKEnum;
 import cn.springboot.mapper.simple.NewsMapper;
 import cn.springboot.model.simple.News;
-import cn.springboot.service.NewsService;
+import cn.springboot.service.simple.NewsService;
 
 /** 
  * @Description 新闻接口实现类
@@ -39,7 +40,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public boolean addNews(News news) {
         if (news != null) {
-            news.setId(UUIDUtil.getRandom32PK());
+            news.setId(FactoryAboutKey.getPK(TablesPKEnum.T_NEWS));
             news.setCreateTime(Calendar.getInstance().getTime());
             int flag = newsMapper.insert(news);
             if (StringUtils.equals(news.getTitle(), "a"))

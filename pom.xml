@@ -85,6 +85,25 @@
 			<version>1.2.17</version>
 		</dependency>
 
+		<!-- apache shiro -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>shiro-freemarker-tags</artifactId>
+			<version>0.1</version>
+		</dependency>
+
 		<!-- jdbc driver -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -124,16 +143,21 @@
 
 		<!-- other -->
 		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<version>1.1.2</version>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>taglibs</groupId> -->
+		<!-- <artifactId>standard</artifactId> -->
+		<!-- <version>1.1.2</version> -->
+		<!-- </dependency> -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>jstl</groupId> -->
+		<!-- <artifactId>jstl</artifactId> -->
+		<!-- <version>1.2</version> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -148,7 +172,7 @@
 			<version>2.0</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>

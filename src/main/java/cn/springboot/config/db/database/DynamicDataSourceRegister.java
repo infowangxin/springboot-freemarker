@@ -1,4 +1,4 @@
-package cn.springboot.config.datasource;
+package cn.springboot.config.db.database;
 
 import java.sql.SQLException;
 import java.util.HashMap;

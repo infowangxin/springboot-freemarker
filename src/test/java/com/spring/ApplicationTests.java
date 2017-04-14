@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.springboot.Application;
 import cn.springboot.model.simple.News;
-import cn.springboot.service.NewsService;
+import cn.springboot.service.simple.NewsService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
