@@ -22,12 +22,12 @@ import org.slf4j.LoggerFactory;
  * @author 王鑫 
  * @date Mar 24, 2017 7:42:45 PM  
  */
+@SuppressWarnings("all")
 @WebFilter(urlPatterns = "/*", filterName = "XSSCheck", initParams = { @WebInitParam(name = "securityconfig", value = "/*") })
 public class XSSCheckFilter implements Filter {
 
     private static Logger log = LoggerFactory.getLogger(XSSCheckFilter.class);
 
-    @SuppressWarnings("unused")
     private FilterConfig config;
     // 出错跳转的目的地
     private static String errorPath;
@@ -63,7 +63,6 @@ public class XSSCheckFilter implements Filter {
         }
     }
 
-    @SuppressWarnings("rawtypes")
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain filterChain) throws IOException, ServletException {
         Enumeration params = req.getParameterNames();
         HttpServletRequest request = (HttpServletRequest) req;
