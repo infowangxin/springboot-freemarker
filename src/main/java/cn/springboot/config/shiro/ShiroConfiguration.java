@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
  * @author 王鑫 
  * @date Apr 12, 2017 3:51:55 PM  
  */
+@SuppressWarnings("all")
 @Configuration
 public class ShiroConfiguration {
 
@@ -99,9 +100,12 @@ public class ShiroConfiguration {
         // filterChainDefinitionMap.put("/user/edit/**", "authc,perms[user:edit]");// 这里为了测试，固定写死的值，也可以从数据库或其他配置中读取
 
         filterChainDefinitionMap.put("/static/**", "anon");// anon 可以理解为不拦截
+        filterChainDefinitionMap.put("/favicon.ico", "anon");
+
         filterChainDefinitionMap.put("/login", "authc");
-        filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/**", "authc");
+
+        filterChainDefinitionMap.put("/logout", "logout");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
     }
@@ -120,7 +124,7 @@ public class ShiroConfiguration {
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的连接
-        shiroFilterFactoryBean.setSuccessUrl("/user");
+        //shiroFilterFactoryBean.setSuccessUrl("/user");
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 
         loadShiroFilterChain(shiroFilterFactoryBean);

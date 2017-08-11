@@ -34,7 +34,7 @@
         <div id="page-wrapper" class="gray-bg">
             <!---顶部状态栏 star-->
             <div class="row ">
-            <nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
+            		<nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
             </div>
             <!---顶部状态栏 end-->
 

@@ -37,8 +37,8 @@
                 <div class="col-sm-4">
                     <h2>城市管理</h2>
                     <ol class="breadcrumb">
-                        <li><a href="${ctx}/static/index.html">管理首页</a></li>
-                        <li><a href="list.html">城市管理</a></li>
+                        <li><a href="${ctx}/index">管理首页</a></li>
+                        <li><a href="#">城市管理</a></li>
                         <li class="active">城市列表</li>
                     </ol>
                 </div>

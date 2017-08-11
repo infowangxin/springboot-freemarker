@@ -2,6 +2,7 @@ package cn.springboot.common.authority.service.xss;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,6 +18,7 @@ import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.ResourceUtils;
 
 /** 
  * @Description 安全过滤配置管理类
@@ -59,11 +61,13 @@ public class XSSSecurityManager {
 
         log.debug("XSSSecurityManager init(FilterConfig config) begin");
         // 初始化过滤配置文件
-        org.springframework.core.io.Resource res = new ClassPathResource(config.getInitParameter("securityconfig"));
+
         log.debug("xss classpath={}", config.getInitParameter("securityconfig"));
         // 初始化安全过滤配置
         try {
-            if (initConfig(res.getInputStream())) {
+            URL xssPath = ResourceUtils.getURL(config.getInitParameter("securityconfig"));
+            log.debug("xss URL={}", xssPath);
+            if (initConfig(xssPath)) {
                 // 生成匹配器
                 XSS_PATTERN = Pattern.compile(REGEX);
                 if (log.isDebugEnabled()) {
@@ -94,9 +98,9 @@ public class XSSSecurityManager {
      * @return ture or false
      * @throws DocumentException
      */
-    public static boolean initConfig(InputStream in) throws DocumentException {
-        log.debug("XSSSecurityManager.initConfig(InputStream in) begin");
-        Element superElement = new SAXReader().read(in).getRootElement();
+    public static boolean initConfig(URL url) throws DocumentException {
+        log.debug("XSSSecurityManager.initConfig(URL url) begin");
+        Element superElement = new SAXReader().read(url).getRootElement();
         XSSSecurityConfig.IS_CHECK_HEADER = new Boolean(getEleValue(superElement, XSSSecurityConstants.IS_CHECK_HEADER));
         XSSSecurityConfig.IS_CHECK_PARAMETER = new Boolean(getEleValue(superElement, XSSSecurityConstants.IS_CHECK_PARAMETER));
         XSSSecurityConfig.IS_CHECK_URL = new Boolean(getEleValue(superElement, XSSSecurityConstants.IS_CHECK_URL));

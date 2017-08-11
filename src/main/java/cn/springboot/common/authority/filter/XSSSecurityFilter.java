@@ -30,7 +30,7 @@ import cn.springboot.common.authority.service.xss.XSSSecurityManager;
  * @author 王鑫 
  * @date Mar 24, 2017 7:43:01 PM  
  */
-@WebFilter(urlPatterns = "/*", filterName = "XSSCheck", initParams = { @WebInitParam(name = "securityconfig", value = "conf/xss_security_config.xml") })
+@WebFilter(urlPatterns = "/*", filterName = "XSSCheck", initParams = { @WebInitParam(name = "securityconfig", value = "classpath:conf/xss_security_config.xml") })
 public class XSSSecurityFilter implements Filter {
 
     private static final Logger log = LoggerFactory.getLogger(XSSSecurityFilter.class);

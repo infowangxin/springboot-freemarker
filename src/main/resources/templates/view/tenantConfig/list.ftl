@@ -30,68 +30,7 @@
         <div id="page-wrapper" class="gray-bg">
             <!---顶部状态栏 star-->
             <div class="row ">
-            <nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            </div>
-                <ul class="nav navbar-top-links navbar-right notification-menu">
-                    <li>
-                        <span class="m-r-sm text-muted welcome-message">Welcome to Wuling Admin WebSite.</span>
-                    </li>
-
-                    <li class="dropdown">
-                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                            <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-head pull-right">
-                            <h5 class="title">You have 5 Mails </h5>
-                            <ul class="dropdown-list normal-list">
-                                <li class="new">
-                                    <a href="">
-                                        <span class="thumb"><img src="${ctx}/static/images/photos/user1.png" alt=""></span>
-                                            <span class="desc">
-                                              <span class="name">John Doe <span class="badge badge-success">new</span></span>
-                                              <span class="msg">Lorem ipsum dolor sit amet...</span>
-                                            </span>
-                                    </a>
-                                </li>
-                                <li class="new"><a href="">Read All Mails</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                            <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-head pull-right">
-                            <h5 class="title">Notifications</h5>
-                            <ul class="dropdown-list normal-list">
-                                <li class="new">
-                                    <a href="">
-                                        <span class="label label-danger"><i class="fa fa-bolt"></i></span>
-                                        <span class="name">Server #1 overloaded.  </span>
-                                        <em class="small">34 mins</em>
-                                    </a>
-                                </li>
-                                <li class="new"><a href="">See All Notifications</a></li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="user-dropdown">
-                        <a href="#" class="btn  dropdown-toggle" data-toggle="dropdown">
-                            <img src="${ctx}/static/images/photos/user-avatar.png" alt="" width="20">
-                            羊羊案场经理
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                            <li><a href="#"><i class="fa fa-user"></i>  Profile</a></li>
-                            <li><a href="#"><i class="fa fa-cog"></i>  Settings</a></li>
-                            <li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
+            <nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
             </div>
             <!---顶部状态栏 end-->
 
