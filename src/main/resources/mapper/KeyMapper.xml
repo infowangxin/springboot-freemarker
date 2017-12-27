@@ -16,8 +16,14 @@
 		<!-- select cu.column_name id, cu.table_name tableName from user_cons_columns cu, user_constraints au, tabs t where cu.constraint_name = au.constraint_name and au.constraint_type = 'P' and au.table_name = t.table_name -->
 
 		<!-- MySQL -->
-		select c.column_name id , UPPER(t.table_name) tableName from information_schema.table_constraints as t,information_schema.key_column_usage as c where t.table_name = c.table_name and t.table_schema =  database() and t.constraint_type = 'PRIMARY KEY'
-
+		SELECT k.column_name id ,UPPER(t.TABLE_NAME) tableName
+		FROM information_schema.table_constraints t
+		JOIN information_schema.key_column_usage k
+		USING (constraint_name,table_schema,table_name)
+		WHERE
+		t.constraint_type='PRIMARY KEY'
+		AND t.table_schema=DATABASE()
+		
 		<!-- SQLite -->
 		<!-- SELECT 'ID' as id , UPPER(name) as tableName FROM sqlite_master WHERE type='table' order by name -->
 	</select>
