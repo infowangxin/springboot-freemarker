@@ -4,39 +4,39 @@
 <mapper namespace="cn.springboot.mapper.auth.UserMapper">
 
 	<resultMap id="userMap" type="cn.springboot.model.auth.User">
-		<result column="ID" property="id" />
-		<result column="EMAIL" property="email" />
-		<result column="USERNAME" property="username" />
-		<result column="TRUE_NAME" property="trueName" />
-		<result column="PASSWORD" property="password" />
-		<result column="SALT" property="salt" />
-		<result column="STATUS" property="status" />
-		<result column="ORGANIZE_ID" property="organizeId" />
-		<result column="CREATE_TIME" property="createTime" />
-		<result column="LAST_LOGIN_TIME" property="lastLoginTime" />
-		<result column="MODIFY_TIME" property="modifyTime" />
+		<result column="id" property="id" />
+		<result column="email" property="email" />
+		<result column="username" property="username" />
+		<result column="true_name" property="trueName" />
+		<result column="password" property="password" />
+		<result column="salt" property="salt" />
+		<result column="status" property="status" />
+		<result column="organize_id" property="organizeId" />
+		<result column="create_time" property="createTime" />
+		<result column="last_login_time" property="lastLoginTime" />
+		<result column="modify_time" property="modifyTime" />
 	</resultMap>
 	
 	<insert id="insert" parameterType="cn.springboot.model.auth.User">
-		INSERT INTO T_SYS_USER (ID , CREATE_TIME , EMAIL , LAST_LOGIN_TIME ,  MODIFY_TIME , USERNAME , ORGANIZE_ID , `PASSWORD` , SALT , `STATUS` , TRUE_NAME)
-		VALUES(#{id} , #{createTime} , #{email} , #{lastLoginTime} , #{modifyTime} , #{username} , #{organizeId} , #{password} , #{salt} , #{status} , #{trueName})
+		insert into t_sys_user (id , create_time , email , last_login_time ,  modify_time , username , organize_id , `password` , salt , `status` , true_name)
+		values(#{id} , #{createTime} , #{email} , #{lastLoginTime} , #{modifyTime} , #{username} , #{organizeId} , #{password} , #{salt} , #{status} , #{trueName})
 	</insert>
 
 	<sql id="find_xxx">
 	    <![CDATA[
-			SELECT ID , CREATE_TIME , EMAIL , LAST_LOGIN_TIME ,  MODIFY_TIME , USERNAME , ORGANIZE_ID , `PASSWORD` , SALT , `STATUS` , TRUE_NAME
+			select id , create_time , email , last_login_time ,  modify_time , username , organize_id , `password` , salt , `status` , true_name
 	    ]]>
 	</sql>
 
 	<sql id="from_xxx">
 	    <![CDATA[
-	    	FROM T_SYS_USER
+	    	from t_sys_user
 	    ]]>
 	</sql>
 
 	<sql id="where_xxx">
 	    <![CDATA[
-	    	WHERE 1=1
+	    	where 1=1
 	    ]]>
 	</sql>
 
@@ -44,7 +44,7 @@
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
 		<![CDATA[
-			WHERE ID=#{id}
+			where id=#{id}
 		]]>
 	</select>
 
@@ -52,7 +52,7 @@
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
 		<![CDATA[
-			WHERE USERNAME=#{username}
+			where username=#{username}
 		]]>
 	</select>
 
@@ -60,7 +60,7 @@
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
 		<![CDATA[
-			WHERE ORGANIZE_ID=#{organizeId}
+			where organize_id=#{organizeId}
 		]]>
 	</select>
 	
@@ -73,16 +73,16 @@
 	<select id="findEmp" parameterType="string" resultMap="userMap">
 		<include refid="find_xxx" />
 		<![CDATA[
-			FROM T_SYS_USER U , T_SYS_USER_ROLE UR , T_SYS_ROLE R 
-			WHERE U.ID=UR.USER_ID AND UR.ROLE_ID=R.ID 
-			AND R.CODE=#{roleCode}
-			AND U.STATUS=#{status}
+			from t_sys_user u , t_sys_user_role ur , t_sys_role r 
+			where u.id=ur.user_id and ur.role_id=r.id 
+			and r.code=#{roleCode}
+			and u.status=#{status}
 		]]>
 		<if test="shopId != null">
-			AND U.ORGANIZE_ID=#{shopId}
+			and u.organize_id=#{shopId}
 		</if>
 		<if test="empName != null">
-			AND U.USERNAME LIKE '%'||#{empName}||'%'
+			and u.username like '%'||#{empName}||'%'
 		</if>
 	</select>
 
@@ -92,40 +92,40 @@
 	</select>
 
 	<update id="update" parameterType="cn.springboot.model.auth.User">
-		UPDATE T_SYS_USER
+		update t_sys_user
 		<set>
 			<if test="email != null">
-				EMAIL = #{email},
+				email = #{email},
 			</if>
 			<if test="username != null">
-				USERNAME = #{username},
+				username = #{username},
 			</if>
 			<if test="trueName != null">
-				TRUE_NAME = #{trueName},
+				true_name = #{trueName},
 			</if>
 			<if test="password != null">
-				PASSWORD = #{password},
+				password = #{password},
 			</if>
 			<if test="salt != null">
-				SALT = #{salt},
+				salt = #{salt},
 			</if>
 			<if test="status != null">
-				STATUS = #{status},
+				status = #{status},
 			</if>
 			<if test="organizeId != null">
-				ORGANIZE_ID = #{organizeId},
+				organize_id = #{organizeId},
 			</if>
 			<if test="createTime != null">
-				CREATE_TIME = #{createTime},
+				create_time = #{createTime},
 			</if>
 			<if test="lastLoginTime != null">
-				LAST_LOGIN_TIME = #{lastLoginTime},
+				last_login_time = #{lastLoginTime},
 			</if>
 			<if test="modifyTime != null">
-				MODIFY_TIME = #{modifyTime}
+				modify_time = #{modifyTime}
 			</if>
 		</set>
-		WHERE ID = #{id}
+		where id = #{id}
 	</update>
 
 	<select id="findAllByFilter" parameterType="Map" resultMap="userMap">
@@ -133,18 +133,18 @@
 		<include refid="from_xxx" />
 		<include refid="where_xxx" />
 		<if test="start != null and limit != null">
-			LIMIT #{start},#{limit}
+			limit #{start},#{limit}
 		</if>
 	</select>
 
 	<select id="findAllByFilterCount" parameterType="Map" resultType="int">
-		SELECT COUNT(id)
+		select count(id)
 		<include refid="from_xxx" />
 		<include refid="where_xxx" />
 	</select>
 
 	<delete id="delete" parameterType="string">
-		DELETE FROM T_SYS_USER WHERE ID=#{id}
+		delete from t_sys_user where id=#{id}
 	</delete>
 
 </mapper>

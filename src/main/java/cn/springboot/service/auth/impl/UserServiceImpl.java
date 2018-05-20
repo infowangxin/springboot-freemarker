@@ -14,8 +14,8 @@ import cn.springboot.common.constants.Constants;
 import cn.springboot.common.exception.BusinessException;
 import cn.springboot.common.util.salt.Digests;
 import cn.springboot.common.util.salt.Encodes;
-import cn.springboot.config.db.table.FactoryAboutKey;
-import cn.springboot.config.db.table.TablesPKEnum;
+import cn.springboot.config.db.pk.FactoryAboutKey;
+import cn.springboot.config.db.pk.TableEnum;
 import cn.springboot.mapper.auth.RoleMapper;
 import cn.springboot.mapper.auth.UserMapper;
 import cn.springboot.mapper.auth.UserRoleMapper;
@@ -81,13 +81,13 @@ public class UserServiceImpl implements UserService {
         entryptPassword(user);
         user.setStatus(Constants.STATUS_VALID);
         user.setCreateTime(Calendar.getInstance().getTime());
-        user.setId(FactoryAboutKey.getPK(TablesPKEnum.T_SYS_USER));
+        user.setId(FactoryAboutKey.getPK(TableEnum.T_SYS_USER));
         userMapper.insert(user);
 
         UserRole ur = new UserRole();
         ur.setRoleId(r.getId());
         ur.setUserId(user.getId());
-        ur.setId(FactoryAboutKey.getPK(TablesPKEnum.T_SYS_USER_ROLE));
+        ur.setId(FactoryAboutKey.getPK(TableEnum.T_SYS_USER_ROLE));
         // daoService.save(ur);
         userRoleMapper.insert(ur);
     }

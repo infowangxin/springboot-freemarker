@@ -7,11 +7,16 @@
 + 包含框架有：SpringBoot、SpringMVC、MyBaits、Bootstrap3、Druid、Freemarker；
 + 集成示例有：增删改查及分页;防XSS、SQL注入；
 
+
+#### 数据库配置
++ 默认是连接的MySQL数据库，支持多数据源，分别连接的db1,db2 ，在项目工程的db文件夹下有数据库初始化脚本；
++ 如果切换至sqlite数据库时，则application.properties当中的mybatis分页插件需要改成支持sqlite；
+
 #### 示例启动
   
 + 启动工程；
 + 运行cn.springboot.Application当中的main方法；
-+ 浏览器访问工程查看示例效果；
++ 浏览器访问http://localhost:8090, 测试账号是admin/123456，即可看示例效果；
 
 [GitHub](https://github.com/wangxinforme) [issues](https://github.com/wangxinforme/springboot-freemarker/issues)
 

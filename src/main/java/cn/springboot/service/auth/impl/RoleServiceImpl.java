@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.springboot.common.exception.BusinessException;
-import cn.springboot.config.db.table.FactoryAboutKey;
-import cn.springboot.config.db.table.TablesPKEnum;
+import cn.springboot.config.db.pk.FactoryAboutKey;
+import cn.springboot.config.db.pk.TableEnum;
 import cn.springboot.mapper.auth.PermissionMapper;
 import cn.springboot.mapper.auth.RoleMapper;
 import cn.springboot.mapper.auth.RolePermissionMapper;
@@ -44,7 +44,7 @@ public class RoleServiceImpl implements RoleService {
         }
         Role r = findRoleByCode(role.getCode());
         if (r == null) {
-            role.setId(FactoryAboutKey.getPK(TablesPKEnum.T_SYS_ROLE));
+            role.setId(FactoryAboutKey.getPK(TableEnum.T_SYS_ROLE));
             roleMapper.insert(role);
         }
     }
@@ -80,7 +80,7 @@ public class RoleServiceImpl implements RoleService {
 
         RolePermission rp = rolePermissionMapper.findRolePermission(rolePermission);
         if (rp == null) {
-            rolePermission.setId(FactoryAboutKey.getPK(TablesPKEnum.T_SYS_ROLE_PERMISSION));
+            rolePermission.setId(FactoryAboutKey.getPK(TableEnum.T_SYS_ROLE_PERMISSION));
             rolePermissionMapper.insert(rolePermission);
         }
 

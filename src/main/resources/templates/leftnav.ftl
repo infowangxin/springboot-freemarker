@@ -19,8 +19,12 @@
 		</div>
 		<ul class="nav metismenu" id="side-menu">
 			<#if permission_session?? && (permission_session?size > 0) >
-				<#list permission_session as one>  
-					<li>
+				<#list permission_session as one>
+					<#if one.children?? && (one.children?size > 0) >
+					<li class="active">
+					<#else>
+					<li >
+					</#if>
 						<#if one.url??>
 							<a href="${ctx}/${one.url!''}">
 						<#else>

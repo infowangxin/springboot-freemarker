@@ -17,8 +17,8 @@ import cn.springboot.common.constants.Constants;
 import cn.springboot.common.exception.BusinessException;
 import cn.springboot.config.db.database.DataSourceEnum;
 import cn.springboot.config.db.database.TargetDataSource;
-import cn.springboot.config.db.table.FactoryAboutKey;
-import cn.springboot.config.db.table.TablesPKEnum;
+import cn.springboot.config.db.pk.FactoryAboutKey;
+import cn.springboot.config.db.pk.TableEnum;
 import cn.springboot.mapper.simple.NewsMapper;
 import cn.springboot.model.simple.News;
 import cn.springboot.service.simple.NewsService;
@@ -40,7 +40,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public boolean addNews(News news) {
         if (news != null) {
-            news.setId(FactoryAboutKey.getPK(TablesPKEnum.T_NEWS));
+            news.setId(FactoryAboutKey.getPK(TableEnum.T_NEWS));
             news.setCreateTime(Calendar.getInstance().getTime());
             int flag = newsMapper.insert(news);
             if (StringUtils.equals(news.getTitle(), "a"))

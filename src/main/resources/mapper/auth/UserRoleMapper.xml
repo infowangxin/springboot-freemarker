@@ -10,31 +10,31 @@
 	</resultMap>
 	
 	<insert id="insert" parameterType="cn.springboot.model.auth.UserRole">
-		INSERT INTO T_SYS_USER_ROLE(ID , USER_ID , ROLE_ID) VALUES(#{id} , #{userId} , #{roleId})
+		insert into t_sys_user_role(id , user_id , role_id) values(#{id} , #{userId} , #{roleId})
 	</insert>
 
 	<sql id="find_xxx">
 	    <![CDATA[
-	    	SELECT ID , USER_ID , ROLE_ID
+	    	select id , user_id , role_id
 	    ]]>
 	</sql>
 
 	<sql id="from_xxx">
 	    <![CDATA[
-	    	FROM T_SYS_USER_ROLE
+	    	from t_sys_user_role
 	    ]]>
 	</sql>
 
 	<sql id="where_xxx">
 	    <![CDATA[
-	    	WHERE 1=1
+	    	where 1=1
 	    ]]>
 	</sql>
 
 	<select id="findById" parameterType="int" resultMap="userRoleMap">
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
-		WHERE ID=#{id}
+		where id=#{id}
 	</select>
 
 	<select id="findAllByFilter" parameterType="Map" resultMap="userRoleMap">
@@ -42,31 +42,31 @@
 		<include refid="from_xxx" />
 		<include refid="where_xxx" />
 		<if test="start != null and limit != null">
-			LIMIT #{start},#{limit}
+			limit #{start},#{limit}
 		</if>
 	</select>
 
 	<select id="findAllByFilterCount" parameterType="Map" resultType="int">
-		SELECT COUNT(id)
+		select count(id)
 		<include refid="from_xxx" />
 		<include refid="where_xxx" />
 	</select>
 
 	<update id="update" parameterType="cn.springboot.model.auth.UserRole">
-		UPDATE T_SYS_USER_ROLE
+		update t_sys_user_role
 		<set>
 			<if test="userId != null">
-				USER_ID = #{userId},
+				user_id = #{userId},
 			</if>
 			<if test="roleId != null">
-				ROLE_ID = #{roleId}
+				role_id = #{roleId}
 			</if>
 		</set>
-		WHERE id = #{id}
+		where id = #{id}
 	</update>
 
 	<delete id="delete" parameterType="string">
-		DELETE FROM T_SYS_USER_ROLE WHERE ID IN #{id}
+		delete from t_sys_user_role where id in #{id}
 	</delete>
 
 </mapper>

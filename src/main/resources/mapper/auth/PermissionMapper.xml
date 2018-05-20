@@ -4,59 +4,59 @@
 <mapper namespace="cn.springboot.mapper.auth.PermissionMapper">
 
 	<resultMap id="permissionMap" type="cn.springboot.model.auth.Permission">
-		<result property="id" column="ID" />
-		<result property="name" column="NAME" />
-		<result property="cssClass" column="CSS_CLASS" />
-		<result property="key" column="SKEY" />
-		<result property="hide" column="HIDE" />
-		<result property="url" column="URL" />
-		<result property="lev" column="LEV" />
-		<result property="sort" column="SORT" />
-		<result property="parentKey" column="PARENT_KEY" />
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="cssClass" column="css_class" />
+		<result property="key" column="skey" />
+		<result property="hide" column="hide" />
+		<result property="url" column="url" />
+		<result property="lev" column="lev" />
+		<result property="sort" column="sort" />
+		<result property="parentKey" column="parent_key" />
 	</resultMap>
 
 	<insert id="insert" parameterType="cn.springboot.model.auth.Permission">
-		INSERT INTO T_SYS_PERMISSION(ID , NAME , CSS_CLASS, SKEY , HIDE , URL, LEV, SORT , PARENT_KEY) 
-		VALUES(#{id} , #{name} , #{cssClass} , #{key} , ${hide} , #{url} , ${lev} , ${sort} , #{parentKey})
+		insert into t_sys_permission(id , name , css_class, skey , hide , url, lev, sort , parent_key) 
+		values(#{id} , #{name} , #{cssClass} , #{key} , ${hide} , #{url} , ${lev} , ${sort} , #{parentKey})
 	</insert>
 
 	<sql id="find_xxx">
 	    <![CDATA[
-	    	SELECT ID , HIDE , SKEY , NAME, CSS_CLASS , PARENT_KEY, LEV, SORT , URL
+	    	select id , hide , skey , name, css_class , parent_key, lev, sort , url
 	    ]]>
 	</sql>
 	
 	<sql id="find_AS_R">
 	    <![CDATA[
-	    	SELECT P.ID , P.HIDE , P.SKEY , P.NAME, P.CSS_CLASS , P.PARENT_KEY , P.LEV , P.SORT , P.URL
+	    	select p.id , p.hide , p.skey , p.name, p.css_class , p.parent_key , p.lev , p.sort , p.url
 	    ]]>
 	</sql>
 
 	<sql id="from_xxx">
 	    <![CDATA[
-	    	FROM T_SYS_PERMISSION
+	    	from t_sys_permission
 	    ]]>
 	</sql>
 
 	<sql id="where_xxx">
 	    <![CDATA[
-	    	WHERE 1=1
+	    	where 1=1
 	    ]]>
 	</sql>
 
 	<select id="findById" parameterType="int" resultMap="permissionMap">
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
-		WHERE ID=#{id}
+		where id=#{id}
 	</select>
 
 	<select id="findPermissionByUserId" parameterType="string" resultMap="permissionMap">
 		<include refid="find_AS_R" />
 		 <![CDATA[
-			FROM T_SYS_PERMISSION P , T_SYS_USER_ROLE UR , T_SYS_ROLE_PERMISSION RP 
-			WHERE RP.PERMISSION_ID=P.ID AND RP.ROLE_ID=UR.ROLE_ID 
-			AND UR.USER_ID=#{userId}
-			ORDER BY P.SORT ASC
+			from t_sys_permission p , t_sys_user_role ur , t_sys_role_permission rp 
+			where rp.permission_id=p.id and rp.role_id=ur.role_id 
+			and ur.user_id=#{userId}
+			order by p.sort asc
 		 ]]>
 	</select>
 	
@@ -64,7 +64,7 @@
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
 		 <![CDATA[
-			WHERE SKEY=#{permissionKey}
+			where skey=#{permissionKey}
 		 ]]>
 	</select>
 
@@ -73,49 +73,49 @@
 		<include refid="from_xxx" />
 		<include refid="where_xxx" />
 		<if test="start != null and limit != null">
-			LIMIT #{start},#{limit}
+			limit #{start},#{limit}
 		</if>
 	</select>
 
 	<select id="findAllByFilterCount" parameterType="Map" resultType="int">
-		SELECT COUNT(ID)
+		select count(id)
 		<include refid="from_xxx" />
 		<include refid="where_xxx" />
 	</select>
 
 	<update id="update" parameterType="cn.springboot.model.auth.Permission">
-		UPDATE T_SYS_PERMISSION
+		update t_sys_permission
 		<set>
 			<if test="hide != null">
-				HIDE = ${hide},
+				hide = ${hide},
 			</if>
 			<if test="key != null">
-				SKEY = #{key},
+				skey = #{key},
 			</if>
 			<if test="name != null">
-				NAME = #{name},
+				name = #{name},
 			</if>
 			<if test="cssClass != null">
-				CSS_CLASS = #{cssClass},
+				css_class = #{cssClass},
 			</if>
 			<if test="parentKey != null">
-				PARENT_KEY = #{parentKey},
+				parent_key = #{parentKey},
 			</if>
 			<if test="lev != null">
-				LEV = ${lev},
+				lev = ${lev},
 			</if>
 			<if test="sort != null">
-				SORT = ${sort},
+				sort = ${sort},
 			</if>
 			<if test="url != null">
-				URL = #{url}
+				url = #{url}
 			</if>
 		</set>
-		WHERE ID = #{id}
+		where id = #{id}
 	</update>
 
 	<delete id="delete" parameterType="string">
-		DELETE FROM T_SYS_PERMISSION WHERE ID=#{id}
+		delete from t_sys_permission where id=#{id}
 	</delete>
 
 </mapper>

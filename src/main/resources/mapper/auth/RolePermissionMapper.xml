@@ -5,42 +5,42 @@
 
 	<resultMap id="rolePermissionMap" type="cn.springboot.model.auth.RolePermission">
 		<result property="id" column="id" jdbcType="VARCHAR" />
-		<result property="roleId" column="ROLE_ID" jdbcType="VARCHAR" />
-		<result property="permissionId" column="PERMISSION_ID" jdbcType="VARCHAR" />
+		<result property="roleId" column="role_id" jdbcType="VARCHAR" />
+		<result property="permissionId" column="permission_id" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<insert id="insert" parameterType="cn.springboot.model.auth.RolePermission">
-		INSERT INTO T_SYS_ROLE_PERMISSION(ID, ROLE_ID , PERMISSION_ID) VALUES(#{id},#{roleId},#{permissionId})
+		insert into t_sys_role_permission(id, role_id , permission_id) values(#{id},#{roleId},#{permissionId})
 	</insert>
 
 	<sql id="find_xxx">
 	    <![CDATA[
-	    	SELECT ID , ROLE_ID , PERMISSION_ID
+	    	select id , role_id , permission_id
 	    ]]>
 	</sql>
 
 	<sql id="from_xxx">
 	    <![CDATA[
-	    	FROM T_SYS_ROLE_PERMISSION
+	    	from t_sys_role_permission
 	    ]]>
 	</sql>
 
 	<sql id="where_xxx">
 	    <![CDATA[
-	    	WHERE 1=1
+	    	where 1=1
 	    ]]>
 	</sql>
 
 	<select id="findById" parameterType="int" resultMap="rolePermissionMap">
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
-		WHERE ID=#{id}
+		where id=#{id}
 	</select>
 
 	<select id="findRolePermission" parameterType="cn.springboot.model.auth.RolePermission" resultMap="rolePermissionMap">
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
-		WHERE ROLE_ID=#{roleId} and PERMISSION_ID=#{permissionId}
+		where role_id=#{roleId} and permission_id=#{permissionId}
 	</select>
 
 	<select id="findAllByFilter" parameterType="Map" resultMap="rolePermissionMap">
@@ -48,31 +48,31 @@
 		<include refid="from_xxx" />
 		<include refid="where_xxx" />
 		<if test="start != null and limit != null">
-			LIMIT #{start},#{limit}
+			limit #{start},#{limit}
 		</if>
 	</select>
 
 	<select id="findAllByFilterCount" parameterType="Map" resultType="int">
-		SELECT COUNT(ID)
+		select count(id)
 		<include refid="from_xxx" />
 		<include refid="where_xxx" />
 	</select>
 
 	<update id="update" parameterType="cn.springboot.model.auth.RolePermission">
-		UPDATE T_SYS_ROLE_PERMISSION
+		update t_sys_role_permission
 		<set>
 			<if test="roleId != null">
-				ROLE_ID = #{roleId},
+				role_id = #{roleId},
 			</if>
 			<if test="permissionId != null">
-				PERMISSION_ID = #{permissionId}
+				permission_id = #{permissionId}
 			</if>
 		</set>
-		WHERE ID = #{id}
+		where id = #{id}
 	</update>
 
 	<delete id="delete" parameterType="string">
-		DELETE FROM T_SYS_ROLE_PERMISSION WHERE ID=#{id}
+		delete from t_sys_role_permission where id=#{id}
 	</delete>
 
 </mapper>
