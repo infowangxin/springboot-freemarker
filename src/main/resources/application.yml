@@ -61,8 +61,8 @@ spring:
     static-path-pattern: /static/**
   datasource:
     type: com.zaxxer.hikari.HikariDataSource                        # 声明为hikari数据源连接池
-#    driver-class-name: com.mysql.jdbc.Driver                        # MYSQL驱动类
-    driver-class-name: org.sqlite.JDBC                              # sqlite驱动类
+    driver-class-name: com.mysql.jdbc.Driver                        # MYSQL驱动类
+#    driver-class-name: org.sqlite.JDBC                              # sqlite驱动类
     dynamic: # 多数据源
       hikari:
         min-idle: 10                                                # 最小空闲连接
@@ -75,21 +75,21 @@ spring:
       strict: false                                                 # 严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
       datasource:
         db1:
-#          username: root
-#          password: root
-#          url: 'jdbc:mysql://localhost:3306/db1?useUnicode=true&characterEncoding=UTF-8&useSSL=false'
-          username:
-          password:
+          username: root
+          password: root
+          url: 'jdbc:mysql://localhost:3306/db1?useUnicode=true&characterEncoding=UTF-8&useSSL=false'
+#          username:
+#          password:
           # sqlite3 建议使用绝对路径，这里使用的是相对路径
-          url: 'jdbc:sqlite::resource:db/sqlite/db1.sqlite3'
+#          url: 'jdbc:sqlite::resource:db/sqlite/db1.sqlite3'
         db2:
-#          username: root
-#          password: root
-#          url: 'jdbc:mysql://localhost:3306/db2?useUnicode=true&characterEncoding=UTF-8&useSSL=false'
-          username:
-          password:
+          username: root
+          password: root
+          url: 'jdbc:mysql://localhost:3306/db2?useUnicode=true&characterEncoding=UTF-8&useSSL=false'
+#          username:
+#          password:
           # sqlite3 建议使用绝对路径，这里使用的是相对路径
-          url: 'jdbc:sqlite::resource:db/sqlite/db2.sqlite3'
+#          url: 'jdbc:sqlite::resource:db/sqlite/db2.sqlite3'
 mybatis-plus:
   configuration:
     default-fetch-size: 100                                  # 每批处理的大小

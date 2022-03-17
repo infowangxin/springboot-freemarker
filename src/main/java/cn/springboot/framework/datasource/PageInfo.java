@@ -15,7 +15,23 @@ public class PageInfo<T> extends Page<T> {
 
     this.startRow = this.pageNum > 0 ? (this.pageNum - 1) * this.pageSize : 0;
     this.endRow = this.startRow + this.pageSize * (this.pageNum > 0 ? 1 : 0);
-     */
+    */
+
+    public long getPrePage() {
+        if (this.getCurrent() > 1) {
+            // 最后需要加1
+            return this.getCurrent() - 1;
+        }
+        return 1;
+    }
+
+    public long getNextPage() {
+        if (this.getCurrent() < this.getPages()) {
+            // 最后需要加1
+            return this.getCurrent() + 1;
+        }
+        return this.getPages();
+    }
 
     public long getStartRow() {
         if (this.getCurrent() > 0) {
