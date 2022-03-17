@@ -104,20 +104,6 @@ locks:
     session-timeout: 30000              # session会话超时时间,30秒
 app:
   version: '@version@'
-  white:
-    list-url: # 拦截器白名单地址
-      - /static
-      - /error
-      - /403
-      - /404
-      - /500
-      - /
-      - /index
-      - /secret
-      - /cust
-      - /swagger-ui
-      - /v3/api-docs
-      - /doc
 
 logging:
   config: classpath:log4j2.xml
