@@ -17,7 +17,7 @@
                 </li>
                 <#if page?? && page.navigatepageNums?? && (page.navigatepageNums?size > 0)>
                     <#list page.navigatepageNums as pgnum>
-                        <#if pgnum==page.pageNum>
+                        <#if pgnum==page.current>
                             <li class="footable-page active">
                                 <a data-page="${pgnum }" href="javascript:void(0);" onclick="goPage(this,'${formId }','${showPageId }');">${pgnum }</a>
                             </li>
