@@ -3,76 +3,79 @@
 
 <mapper namespace="cn.springboot.mapper.auth.RolePermissionMapper">
 
-	<resultMap id="rolePermissionMap" type="cn.springboot.model.auth.RolePermission">
-		<result property="id" column="id" jdbcType="VARCHAR" />
-		<result property="roleId" column="role_id" jdbcType="VARCHAR" />
-		<result property="permissionId" column="permission_id" jdbcType="VARCHAR" />
-	</resultMap>
+    <resultMap id="rolePermissionMap" type="cn.springboot.model.auth.RolePermission">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+        <result property="permissionId" column="permission_id" jdbcType="VARCHAR"/>
+    </resultMap>
 
-	<insert id="insert" parameterType="cn.springboot.model.auth.RolePermission">
-		insert into t_sys_role_permission(id, role_id , permission_id) values(#{id},#{roleId},#{permissionId})
-	</insert>
+    <insert id="insert" parameterType="cn.springboot.model.auth.RolePermission">
+        insert into t_sys_role_permission(id, role_id, permission_id)
+        values (#{id}, #{roleId}, #{permissionId})
+    </insert>
 
-	<sql id="find_xxx">
+    <sql id="find_xxx">
 	    <![CDATA[
-	    	select id , role_id , permission_id
-	    ]]>
+        select id, role_id, permission_id
+        ]]>
 	</sql>
 
-	<sql id="from_xxx">
+    <sql id="from_xxx">
 	    <![CDATA[
-	    	from t_sys_role_permission
-	    ]]>
+        from t_sys_role_permission
+        ]]>
 	</sql>
 
-	<sql id="where_xxx">
+    <sql id="where_xxx">
 	    <![CDATA[
-	    	where 1=1
-	    ]]>
+        where 1=1
+        ]]>
 	</sql>
 
-	<select id="findById" parameterType="int" resultMap="rolePermissionMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		where id=#{id}
-	</select>
+    <select id="findById" parameterType="int" resultMap="rolePermissionMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        where id=#{id}
+    </select>
 
-	<select id="findRolePermission" parameterType="cn.springboot.model.auth.RolePermission" resultMap="rolePermissionMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		where role_id=#{roleId} and permission_id=#{permissionId}
-	</select>
+    <select id="findRolePermission" parameterType="cn.springboot.model.auth.RolePermission" resultMap="rolePermissionMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        where role_id=#{roleId} and permission_id=#{permissionId}
+    </select>
 
-	<select id="findAllByFilter" parameterType="Map" resultMap="rolePermissionMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		<include refid="where_xxx" />
-		<if test="start != null and limit != null">
-			limit #{start},#{limit}
-		</if>
-	</select>
+    <select id="findAllByFilter" parameterType="Map" resultMap="rolePermissionMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        <include refid="where_xxx"/>
+        <if test="start != null and limit != null">
+            limit #{start},#{limit}
+        </if>
+    </select>
 
-	<select id="findAllByFilterCount" parameterType="Map" resultType="int">
-		select count(id)
-		<include refid="from_xxx" />
-		<include refid="where_xxx" />
-	</select>
+    <select id="findAllByFilterCount" parameterType="Map" resultType="int">
+        select count(id)
+        <include refid="from_xxx"/>
+        <include refid="where_xxx"/>
+    </select>
 
-	<update id="update" parameterType="cn.springboot.model.auth.RolePermission">
-		update t_sys_role_permission
-		<set>
-			<if test="roleId != null">
-				role_id = #{roleId},
-			</if>
-			<if test="permissionId != null">
-				permission_id = #{permissionId}
-			</if>
-		</set>
-		where id = #{id}
-	</update>
+    <update id="update" parameterType="cn.springboot.model.auth.RolePermission">
+        update t_sys_role_permission
+        <set>
+            <if test="roleId != null">
+                role_id = #{roleId},
+            </if>
+            <if test="permissionId != null">
+                permission_id = #{permissionId}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
-	<delete id="delete" parameterType="string">
-		delete from t_sys_role_permission where id=#{id}
-	</delete>
+    <delete id="delete" parameterType="string">
+        delete
+        from t_sys_role_permission
+        where id = #{id}
+    </delete>
 
 </mapper>

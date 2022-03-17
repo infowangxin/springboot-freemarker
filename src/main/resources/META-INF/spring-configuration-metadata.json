@@ -1,0 +1,45 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "name": "locks.zookeeper",
+      "description": "zookeeper分布式锁相关配置参数"
+    },
+    {
+      "name": "app",
+      "description": "应用相关参数配置"
+    }
+  ],
+  "properties": [
+    {
+      "name": "locks.zookeeper.namespace",
+      "type": "java.lang.String",
+      "description": "zookeeper分布式锁命名空间"
+    },
+    {
+      "name": "locks.zookeeper.connect-server",
+      "type": "java.lang.String",
+      "description": "zookeeper分布式锁连接地址"
+    },
+    {
+      "name": "locks.zookeeper.connection-timeout",
+      "type": "java.lang.Integer",
+      "description": "zookeeper分布式锁连接超时时间"
+    },
+    {
+      "name": "locks.zookeeper.session-timeout",
+      "type": "java.lang.Integer",
+      "description": "zookeeper分布式锁session会话超时时间"
+    },
+    {
+      "name": "app.version",
+      "type": "java.lang.String",
+      "description": "应用版本号"
+    },
+    {
+      "name": "app.white.list-url",
+      "type": "java.util.List<java.lang.String>",
+      "description": "HTTP拦截器白名单URN"
+    }
+  ]
+}

@@ -73,7 +73,7 @@
 
                                             <tr>
                                                 <td>上海</td>
-                                                <td>上海屋瓴(00966)</td>
+                                                <td>上海公司(00966)</td>
                                                 <td class="text-right text-nowrap">
                                                     <div class="btn-group ">
                                                         <button class="btn btn-white btn-sm edit" data-id="1" data-toggle="modal" data-target="#edit"><i class="fa fa-pencil"></i>  编辑</button>
@@ -83,7 +83,7 @@
 
                                             <tr>
                                                 <td>南京</td>
-                                                <td>上海屋瓴(00966)</td>
+                                                <td>上海公司(00966)</td>
                                                 <td class="text-right text-nowrap">
                                                     <div class="btn-group ">
                                                         <button class="btn btn-white btn-sm edit" data-id="1" data-toggle="modal" data-target="#edit"><i class="fa fa-pencil"></i>  编辑</button>
@@ -93,7 +93,7 @@
 
                                             <tr>
                                                 <td>深圳</td>
-                                                <td>上海屋瓴(00966)</td>
+                                                <td>上海公司(00966)</td>
                                                 <td class="text-right text-nowrap">
                                                     <div class="btn-group ">
                                                         <button class="btn btn-white btn-sm edit" data-id="1" data-toggle="modal" data-target="#edit"><i class="fa fa-pencil"></i>  编辑</button>
@@ -146,7 +146,8 @@
     <!-- 全局 scripts -->
     <script src="${ctx}/static/js/jquery-2.1.1.js"></script>
     <script src="${ctx}/static/js/bootstrap.js"></script>
-    <script src="${ctx}/static/js/wuling.js"></script>
+    <script> var ctx = '${ctx}';</script>
+<script src="${ctx}/static/js/menu-support.js"></script>
     <script src="${ctx}/static/js/plugins/pace/pace.min.js"></script>
     <script src="${ctx}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="${ctx}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>

@@ -50,7 +50,7 @@
                                 <style>
                                     .textp{}
                                     .textp span{display: inline-block}
-                                    .textp .p1 { 
+                                    .textp .p1 {
                                         font-size: 28px;
                                         font-family:Arial;
                                         line-height: 10px;
@@ -167,8 +167,8 @@
             </a>
         </div>
     </div>
-    
-    
+
+
     <div class="modal tabs-modal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -182,7 +182,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="tabs-container">
-                        
+
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane active">
                                 <div class="panel-body">
@@ -202,13 +202,14 @@
                     </div>
             </div>
         </div>
-        
+
        </div>
      </div>
 <!-- 全局 scripts -->
 <script src="${ctx}/static/js/jquery-2.1.1.js"></script>
 <script src="${ctx}/static/js/bootstrap.js"></script>
-<script src="${ctx}/static/js/wuling.js"></script>
+<script> var ctx = '${ctx}';</script>
+<script src="${ctx}/static/js/menu-support.js"></script>
 <script src="${ctx}/static/js/plugins/pace/pace.min.js"></script>
 <script src="${ctx}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${ctx}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -237,7 +238,7 @@
         a()
     });
 
-    /**        
+    /**
     $('#my_multi_select3').multiSelect({
      selectableHeader: "<div class='custom-header '><h4>未开通城市<small>（列表中点击即可开通）</small></h4></div><input type='text' class='form-control search-input' autocomplete='off' placeholder='搜索城市...'>",
      selectionHeader: "<div class='custom-header '><h4 class='text-navy'>已开通城市</h4></div><input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",

@@ -1,26 +1,25 @@
 package cn.springboot.service.auth.impl;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import cn.springboot.framework.exception.BusinessException;
+import cn.springboot.framework.pk.FactoryAboutKey;
+import cn.springboot.framework.pk.TableEnum;
+import cn.springboot.mapper.auth.PermissionMapper;
+import cn.springboot.model.auth.Permission;
+import cn.springboot.service.auth.PermissionService;
+import cn.springboot.web.shiro.vo.PermissionVo;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.springboot.common.exception.BusinessException;
-import cn.springboot.config.db.pk.FactoryAboutKey;
-import cn.springboot.config.db.pk.TableEnum;
-import cn.springboot.config.shiro.vo.PermissionVo;
-import cn.springboot.mapper.auth.PermissionMapper;
-import cn.springboot.model.auth.Permission;
-import cn.springboot.service.auth.PermissionService;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
-@Service("permissionService")
+@Service
 public class PermissionServiceImpl implements PermissionService {
 
     @Autowired
@@ -32,7 +31,7 @@ public class PermissionServiceImpl implements PermissionService {
         pvo.setName(per.getName());
         pvo.setCssClass(per.getCssClass());
         pvo.setUrl(per.getUrl());
-        pvo.setKey(per.getKey());
+        pvo.setSkey(per.getSkey());
         pvo.setParentKey(per.getParentKey());
         pvo.setHide(per.getHide());
         pvo.setLev(per.getLev());
@@ -50,81 +49,83 @@ public class PermissionServiceImpl implements PermissionService {
 
         if (CollectionUtils.isNotEmpty(permissions)) {
 
-            Map<String, PermissionVo> oneMap = new LinkedHashMap<String, PermissionVo>();// 一级菜单
-            Map<String, PermissionVo> twoMap = new LinkedHashMap<String, PermissionVo>();// 二级菜单
-            Map<String, PermissionVo> threeMap = new LinkedHashMap<String, PermissionVo>();// 三级菜单
+            // 一级菜单
+            Map<String, PermissionVo> oneMap = new LinkedHashMap<>();
+            // 二级菜单
+            Map<String, PermissionVo> twoMap = new LinkedHashMap<>();
+            // 三级菜单
+            Map<String, PermissionVo> threeMap = new LinkedHashMap<>();
 
-            String parentKey = null, key = null;
-            Integer lev = null;
-            PermissionVo child = null, parent = null, permissionVo = null;
+            String key;
+            Integer lev;
+            PermissionVo permissionVo;
             for (Permission p : permissions) {
-                key = p.getKey();
+                key = p.getSkey();
                 lev = p.getLev();
                 permissionVo = convertToVo(p);
-                if (1 == lev) {// 判断是不是模块
+                // 判断是不是模块
+                if (1 == lev) {
                     oneMap.put(key, permissionVo);
                 }
-                if (2 == lev) {// 判断是不是菜单分类
+                // 判断是不是菜单分类
+                if (2 == lev) {
                     twoMap.put(key, permissionVo);
                 }
-                if (3 == lev) {// 判断是不是菜单
+                // 判断是不是菜单
+                if (3 == lev) {
                     threeMap.put(key, permissionVo);
                 }
             }
 
-            List<PermissionVo> vos = null;
-
             // 迭代所有3级菜单， 把3级菜单挂在2级菜单分类下面去
-            for (Entry<String, PermissionVo> vo : threeMap.entrySet()) {
-                child = vo.getValue();// 3级菜单
-                parentKey = child.getParentKey();// 获取3级菜单对应的2级菜单KEY，即父节点KEY
-                if (twoMap.containsKey(parentKey)) {// 校验当前拿到的2级菜单KEY在twoMap集合中有没有
-                    parent = twoMap.get(parentKey);// 获取对应的2级菜单
-
-                    vos = parent.getChildren();// 获取2级菜单下3级菜单集合
-                    if (CollectionUtils.isEmpty(vos)) {
-                        vos = new ArrayList<>();
-                    }
-                    vos.add(child);// 将3级菜单挂在2级菜单下去
-                    parent.setChildren(vos);
-                    twoMap.put(parentKey, parent);
-                }
-            }
+            pingMenu(twoMap, threeMap);
 
             // 迭代所有2级菜单， 把2级菜单挂在1级菜单分类下面去
-            for (Entry<String, PermissionVo> vo : twoMap.entrySet()) {
-                child = vo.getValue();// 2级菜单
-                parentKey = child.getParentKey();// 获取2级菜单对应的1级菜单KEY，即父节点KEY
-                if (oneMap.containsKey(parentKey)) {// 校验当前拿到的1级菜单KEY在oneMap集合中有没有
-                    parent = oneMap.get(parentKey);// 获取对应的1级菜单
+            pingMenu(oneMap, twoMap);
 
-                    vos = parent.getChildren();// 获取1级菜单下2级菜单集合
-                    if (CollectionUtils.isEmpty(vos)) {
-                        vos = new ArrayList<PermissionVo>();
-                    }
-                    vos.add(child);// 将2级菜单挂在1级菜单下去
-                    parent.setChildren(vos);
-                    oneMap.put(parentKey, parent);
-                }
-            }
-
-            List<PermissionVo> permissionVos = new ArrayList<PermissionVo>();
-            permissionVos.addAll(oneMap.values());
-            return permissionVos;
+            return new ArrayList<>(oneMap.values());
         } else {
             return null;
         }
     }
 
-    @Transactional
+    private void pingMenu(Map<String, PermissionVo> parentMenuMap, Map<String, PermissionVo> childMenuMap) {
+        PermissionVo child;
+        String parentKey;
+        PermissionVo parent;
+        List<PermissionVo> vos;
+        for (Entry<String, PermissionVo> vo : childMenuMap.entrySet()) {
+            // 子菜单
+            child = vo.getValue();
+            // 获取子级菜单对应的父级菜单KEY，即父节点KEY
+            parentKey = child.getParentKey();
+            if (parentMenuMap.containsKey(parentKey)) {
+                // 获取对应的父菜单
+                parent = parentMenuMap.get(parentKey);
+
+                // 获取父菜单下父级菜单集合
+                vos = parent.getChildren();
+                if (CollectionUtils.isEmpty(vos)) {
+                    vos = new ArrayList<>();
+                }
+                // 将子菜单挂在父菜单下去
+                vos.add(child);
+                parent.setChildren(vos);
+                parentMenuMap.put(parentKey, parent);
+            }
+        }
+    }
+
+    @Transactional(rollbackFor = BusinessException.class)
     @Override
     public void addPermission(Permission permission) {
-        if (permission == null || StringUtils.isBlank(permission.getKey()) || StringUtils.isBlank(permission.getName())) {
-            throw new BusinessException("permission-fail","## 创建菜单出错；菜单项数据不完整，无法进行创建。");
+        if (permission == null || StringUtils.isBlank(permission.getSkey()) || StringUtils.isBlank(permission.getName())) {
+            throw new BusinessException("permission-fail", "## 创建菜单出错；菜单项数据不完整，无法进行创建。");
         }
-        Permission p = permissionMapper.findPermissionByKey(permission.getKey());
-        if(p!=null)
-            throw new BusinessException("permission-fail","#创建菜单出错;菜单Key已经存在,key="+permission.getKey());
+        Permission p = permissionMapper.findPermissionByKey(permission.getSkey());
+        if (p != null) {
+            throw new BusinessException("permission-fail", "#创建菜单出错;菜单Key已经存在,key=" + permission.getSkey());
+        }
         permission.setId(FactoryAboutKey.getPK(TableEnum.T_SYS_PERMISSION));
         permissionMapper.insert(permission);
     }

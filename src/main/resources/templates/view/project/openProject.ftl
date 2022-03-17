@@ -146,7 +146,8 @@
 <!-- 全局 scripts -->
 <script src="${ctx}/static/js/jquery-2.1.1.js"></script>
 <script src="${ctx}/static/js/bootstrap.js"></script>
-<script src="${ctx}/static/js/wuling.js"></script>
+<script> var ctx = '${ctx}';</script>
+<script src="${ctx}/static/js/menu-support.js"></script>
 <script src="${ctx}/static/js/plugins/pace/pace.min.js"></script>
 <script src="${ctx}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${ctx}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -171,7 +172,7 @@
             calendarWeeks: true,
             autoclose: true
         });
-        
+
         $("#add_form").validate({
             submitHandler: function (form) {
                 $('#myButton').button('loading');
@@ -179,7 +180,7 @@
             }
         });
         function addform(form) {
-           alert($('#addFile').val()) 
+           alert($('#addFile').val())
             $.ajax(
                     {
                         url: "?",

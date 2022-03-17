@@ -1,18 +1,18 @@
 package cn.springboot.mapper.auth;
 
+import cn.springboot.model.auth.RolePermission;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
-import cn.springboot.mapper.BaseMapper;
-import cn.springboot.model.auth.RolePermission;
-
-/** 
- * @Description 角色与菜单关系Mapper
- * @author 王鑫 
- * @date Apr 12, 2017 9:13:04 AM  
+/**
+ * 角色与菜单关系Mapper
+ *
+ * @author 胡桃夹子
+ * @date 2022/3/15 14:14
  */
 @Mapper
-public interface RolePermissionMapper extends BaseMapper<String, RolePermission> {
+public interface RolePermissionMapper extends BaseMapper<RolePermission> {
 
-    public RolePermission findRolePermission(RolePermission per);
+    RolePermission findRolePermission(RolePermission per);
 
 }

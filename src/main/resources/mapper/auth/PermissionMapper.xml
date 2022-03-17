@@ -3,119 +3,137 @@
 
 <mapper namespace="cn.springboot.mapper.auth.PermissionMapper">
 
-	<resultMap id="permissionMap" type="cn.springboot.model.auth.Permission">
-		<result property="id" column="id" />
-		<result property="name" column="name" />
-		<result property="cssClass" column="css_class" />
-		<result property="key" column="skey" />
-		<result property="hide" column="hide" />
-		<result property="url" column="url" />
-		<result property="lev" column="lev" />
-		<result property="sort" column="sort" />
-		<result property="parentKey" column="parent_key" />
-	</resultMap>
+    <resultMap id="permissionMap" type="cn.springboot.model.auth.Permission">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="cssClass" column="css_class"/>
+        <result property="skey" column="skey"/>
+        <result property="hide" column="hide"/>
+        <result property="url" column="url"/>
+        <result property="lev" column="lev"/>
+        <result property="sort" column="sort"/>
+        <result property="parentKey" column="parent_key"/>
+    </resultMap>
 
-	<insert id="insert" parameterType="cn.springboot.model.auth.Permission">
-		insert into t_sys_permission(id , name , css_class, skey , hide , url, lev, sort , parent_key) 
-		values(#{id} , #{name} , #{cssClass} , #{key} , ${hide} , #{url} , ${lev} , ${sort} , #{parentKey})
-	</insert>
+    <insert id="insert" parameterType="cn.springboot.model.auth.Permission">
+        insert into t_sys_permission(id, name, css_class, skey, hide, url, lev, sort, parent_key)
+        values (#{id}, #{name}, #{cssClass}, #{skey}, ${hide}, #{url}, ${lev}, ${sort}, #{parentKey})
+    </insert>
 
-	<sql id="find_xxx">
+    <sql id="find_xxx">
 	    <![CDATA[
-	    	select id , hide , skey , name, css_class , parent_key, lev, sort , url
-	    ]]>
-	</sql>
-	
-	<sql id="find_AS_R">
-	    <![CDATA[
-	    	select p.id , p.hide , p.skey , p.name, p.css_class , p.parent_key , p.lev , p.sort , p.url
-	    ]]>
-	</sql>
-
-	<sql id="from_xxx">
-	    <![CDATA[
-	    	from t_sys_permission
-	    ]]>
+        select id,
+               hide,
+               skey,
+               name,
+               css_class,
+               parent_key,
+               lev,
+               sort,
+               url
+        ]]>
 	</sql>
 
-	<sql id="where_xxx">
+    <sql id="find_AS_R">
 	    <![CDATA[
-	    	where 1=1
-	    ]]>
+        select p.id,
+               p.hide,
+               p.skey,
+               p.name,
+               p.css_class,
+               p.parent_key,
+               p.lev,
+               p.sort,
+               p.url
+        ]]>
 	</sql>
 
-	<select id="findById" parameterType="int" resultMap="permissionMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		where id=#{id}
-	</select>
+    <sql id="from_xxx">
+	    <![CDATA[
+        from t_sys_permission
+        ]]>
+	</sql>
 
-	<select id="findPermissionByUserId" parameterType="string" resultMap="permissionMap">
-		<include refid="find_AS_R" />
-		 <![CDATA[
-			from t_sys_permission p , t_sys_user_role ur , t_sys_role_permission rp 
-			where rp.permission_id=p.id and rp.role_id=ur.role_id 
+    <sql id="where_xxx">
+	    <![CDATA[
+        where 1=1
+        ]]>
+	</sql>
+
+    <select id="findById" parameterType="int" resultMap="permissionMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        where id=#{id}
+    </select>
+
+    <select id="findPermissionByUserId" parameterType="string" resultMap="permissionMap">
+        <include refid="find_AS_R"/>
+        <![CDATA[
+			from t_sys_permission p , t_sys_user_role ur , t_sys_role_permission rp
+			where rp.permission_id=p.id and rp.role_id=ur.role_id
 			and ur.user_id=#{userId}
 			order by p.sort asc
 		 ]]>
-	</select>
-	
-	<select id="findPermissionByKey" parameterType="string" resultMap="permissionMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		 <![CDATA[
+    </select>
+
+    <select id="findPermissionByKey" parameterType="string" resultMap="permissionMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        <![CDATA[
 			where skey=#{permissionKey}
 		 ]]>
-	</select>
+    </select>
 
-	<select id="findAllByFilter" parameterType="Map" resultMap="permissionMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		<include refid="where_xxx" />
-		<if test="start != null and limit != null">
-			limit #{start},#{limit}
-		</if>
-	</select>
+    <select id="findAllByFilter" parameterType="Map" resultMap="permissionMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        <include refid="where_xxx"/>
+        <if test="start != null and limit != null">
+            limit #{start},#{limit}
+        </if>
+    </select>
 
-	<select id="findAllByFilterCount" parameterType="Map" resultType="int">
-		select count(id)
-		<include refid="from_xxx" />
-		<include refid="where_xxx" />
-	</select>
+    <select id="findAllByFilterCount" parameterType="Map" resultType="int">
+        select count(id)
+        <include refid="from_xxx"/>
+        <include refid="where_xxx"/>
+    </select>
 
-	<update id="update" parameterType="cn.springboot.model.auth.Permission">
-		update t_sys_permission
-		<set>
-			<if test="hide != null">
-				hide = ${hide},
-			</if>
-			<if test="key != null">
-				skey = #{key},
-			</if>
-			<if test="name != null">
-				name = #{name},
-			</if>
-			<if test="cssClass != null">
-				css_class = #{cssClass},
-			</if>
-			<if test="parentKey != null">
-				parent_key = #{parentKey},
-			</if>
-			<if test="lev != null">
-				lev = ${lev},
-			</if>
-			<if test="sort != null">
-				sort = ${sort},
-			</if>
-			<if test="url != null">
-				url = #{url}
-			</if>
-		</set>
-		where id = #{id}
-	</update>
+    <update id="update" parameterType="cn.springboot.model.auth.Permission">
+        update t_sys_permission
+        <set>
+            <if test="hide != null">
+                hide = ${hide},
+            </if>
+            <if test="skey != null">
+                skey = #{skey},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="cssClass != null">
+                css_class = #{cssClass},
+            </if>
+            <if test="parentKey != null">
+                parent_key = #{parentKey},
+            </if>
+            <if test="lev != null">
+                lev = ${lev},
+            </if>
+            <if test="sort != null">
+                sort = ${sort},
+            </if>
+            <if test="url != null">
+                url = #{url}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
-	<delete id="delete" parameterType="string">
-		delete from t_sys_permission where id=#{id}
-	</delete>
+    <delete id="delete" parameterType="string">
+        delete
+        from t_sys_permission
+        where id = #{id}
+    </delete>
 
 </mapper>

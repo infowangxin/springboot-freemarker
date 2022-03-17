@@ -1,50 +1,90 @@
 package cn.springboot.model.auth;
 
+import cn.springboot.model.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.util.Date;
 
-import cn.springboot.model.BaseEntity;
-
-/** 
- * @Description 用户对象
- * @author 王鑫 
- * @date Apr 12, 2017 9:11:44 AM  
+/**
+ * 用户对象
+ *
+ * @author 胡桃夹子
+ * @date 2022/3/15 14:13
  */
+@TableName("t_sys_user")
 public class User implements BaseEntity<String> {
 
     private static final long serialVersionUID = 1227495748732942139L;
 
+    /**
+     * 主键
+     */
+    @TableId("id")
     private String id;
 
-    /** email **/
-    private String email;
-
-    /** 用户名 **/
+    /**
+     * 登录账号
+     */
+    @TableField("username")
     private String username;
 
-    /** 真实名称 **/
-    private String trueName;
-
-    /** 密码 **/
+    /**
+     * 登录密码
+     */
+    @TableField("password")
     private String password;
 
-    /** salt码 **/
+    /**
+     * salt
+     */
+    @TableField("salt")
     private String salt;
 
-    /** 状态 **/
-    private Integer status;
+    /**
+     * 真实姓名
+     */
+    @TableField("true_name")
+    private String trueName;
 
-    /** 工作流审批的组织ID **/
+    /**
+     * 邮箱
+     */
+    @TableField("email")
+    private String email;
+
+    /**
+     * 部门ID
+     */
+    @TableField("organize_id")
     private String organizeId;
 
-    /** 创建时间 **/
-    private Date createTime;
+    /**
+     * 状态：0=有效，1=无效
+     */
+    @TableField("status")
+    private Integer status;
 
-    /** 最后登录时间 **/
+    /**
+     * 上将登录时间
+     */
+    @TableField("last_login_time")
     private Date lastLoginTime;
 
-    /** 用户最后修改时间 **/
+    /**
+     * 创建时间
+     */
+    @TableField("create_time")
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @TableField("modify_time")
     private Date modifyTime;
 
+    @Override
     public String getId() {
         return id;
     }

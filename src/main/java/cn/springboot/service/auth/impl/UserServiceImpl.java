@@ -1,21 +1,9 @@
 package cn.springboot.service.auth.impl;
 
-import java.util.Calendar;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import cn.springboot.common.constants.Constants;
-import cn.springboot.common.exception.BusinessException;
-import cn.springboot.common.util.salt.Digests;
-import cn.springboot.common.util.salt.Encodes;
-import cn.springboot.config.db.pk.FactoryAboutKey;
-import cn.springboot.config.db.pk.TableEnum;
+import cn.springboot.framework.constant.Constants;
+import cn.springboot.framework.exception.BusinessException;
+import cn.springboot.framework.pk.FactoryAboutKey;
+import cn.springboot.framework.pk.TableEnum;
 import cn.springboot.mapper.auth.RoleMapper;
 import cn.springboot.mapper.auth.UserMapper;
 import cn.springboot.mapper.auth.UserRoleMapper;
@@ -23,10 +11,28 @@ import cn.springboot.model.auth.Role;
 import cn.springboot.model.auth.User;
 import cn.springboot.model.auth.UserRole;
 import cn.springboot.service.auth.UserService;
+import cn.springboot.util.salt.Digests;
+import cn.springboot.util.salt.Encodes;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service("userService")
+import java.util.Calendar;
+import java.util.List;
+
+/**
+ * 用户相关接口
+ *
+ * @author 胡桃夹子
+ * @date 2022/3/15 14:18
+ */
+@Service
 public class UserServiceImpl implements UserService {
-    private final static Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     public static final String HASH_ALGORITHM = "SHA-1";
     public static final int HASH_INTERATIONS = 1024;
@@ -52,14 +58,10 @@ public class UserServiceImpl implements UserService {
         user.setPassword(Encodes.encodeHex(hashPassword));
     }
 
-    @Transactional
+    @Transactional(rollbackFor = BusinessException.class)
     @Override
     public void addUser(User user, Role role) {
-        if (user == null || role == null) {
-            throw new BusinessException("user.registr.error", "注册信息错误");
-        }
-
-        if (StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword())) {
+        if (user == null || role == null || StringUtils.isAnyBlank(user.getUsername(), user.getPassword())) {
             throw new BusinessException("user.registr.error", "注册信息错误");
         }
 
@@ -67,15 +69,14 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException("user.registr.error", "用户未指定所属角色");
         }
 
-        // Role r = daoService.getByPrimaryKey(Role.class, role.getId());
-        Role r = roleMapper.findById(role.getId());
+        Role r = roleMapper.selectById(role.getId());
         if (r == null) {
             throw new BusinessException("user.registr.error", "用户未指定所属组织或角色");
         }
-        
+
         User u = userMapper.findUserByName(user.getUsername());
-        if(u!=null){
-            throw new BusinessException("user.registr.error", "用户账号已经存在,username="+user.getUsername());
+        if (u != null) {
+            throw new BusinessException("user.registr.error", "用户账号已经存在,username=" + user.getUsername());
         }
 
         entryptPassword(user);
@@ -88,7 +89,6 @@ public class UserServiceImpl implements UserService {
         ur.setRoleId(r.getId());
         ur.setUserId(user.getId());
         ur.setId(FactoryAboutKey.getPK(TableEnum.T_SYS_USER_ROLE));
-        // daoService.save(ur);
         userRoleMapper.insert(ur);
     }
 
@@ -97,12 +97,11 @@ public class UserServiceImpl implements UserService {
         if (log.isDebugEnabled()) {
             log.debug("## update User password.");
         }
-        User u = userMapper.findById(user.getId());
+        User u = userMapper.selectById(user.getId());
         u.setPassword(user.getPassword());
         entryptPassword(u);
         u.setModifyTime(Calendar.getInstance().getTime());
-        // daoService.update(u);
-        userMapper.update(u);
+        userMapper.updateById(u);
     }
 
     @Override
@@ -115,15 +114,14 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Transactional
     @Override
     public void updateUserLastLoginTime(User user) {
-        User u = userMapper.findById(user.getId());
+        User u = userMapper.selectById(user.getId());
         if (u != null) {
             user = new User();
             user.setLastLoginTime(Calendar.getInstance().getTime());
             user.setId(u.getId());
-            userMapper.update(u);
+            userMapper.updateById(u);
         }
     }
 

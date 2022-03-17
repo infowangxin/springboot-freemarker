@@ -3,70 +3,73 @@
 
 <mapper namespace="cn.springboot.mapper.auth.UserRoleMapper">
 
-	<resultMap id="userRoleMap" type="cn.springboot.model.auth.UserRole">
-		<result property="id" column="ID" />
-		<result property="userId" column="USER_ID" />
-		<result property="roleId" column="ROLE_ID" />
-	</resultMap>
-	
-	<insert id="insert" parameterType="cn.springboot.model.auth.UserRole">
-		insert into t_sys_user_role(id , user_id , role_id) values(#{id} , #{userId} , #{roleId})
-	</insert>
+    <resultMap id="userRoleMap" type="cn.springboot.model.auth.UserRole">
+        <result property="id" column="ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="roleId" column="ROLE_ID"/>
+    </resultMap>
 
-	<sql id="find_xxx">
+    <insert id="insert" parameterType="cn.springboot.model.auth.UserRole">
+        insert into t_sys_user_role(id, user_id, role_id)
+        values (#{id}, #{userId}, #{roleId})
+    </insert>
+
+    <sql id="find_xxx">
 	    <![CDATA[
-	    	select id , user_id , role_id
-	    ]]>
+        select id, user_id, role_id
+        ]]>
 	</sql>
 
-	<sql id="from_xxx">
+    <sql id="from_xxx">
 	    <![CDATA[
-	    	from t_sys_user_role
-	    ]]>
+        from t_sys_user_role
+        ]]>
 	</sql>
 
-	<sql id="where_xxx">
+    <sql id="where_xxx">
 	    <![CDATA[
-	    	where 1=1
-	    ]]>
+        where 1=1
+        ]]>
 	</sql>
 
-	<select id="findById" parameterType="int" resultMap="userRoleMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		where id=#{id}
-	</select>
+    <select id="findById" parameterType="int" resultMap="userRoleMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        where id=#{id}
+    </select>
 
-	<select id="findAllByFilter" parameterType="Map" resultMap="userRoleMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		<include refid="where_xxx" />
-		<if test="start != null and limit != null">
-			limit #{start},#{limit}
-		</if>
-	</select>
+    <select id="findAllByFilter" parameterType="Map" resultMap="userRoleMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        <include refid="where_xxx"/>
+        <if test="start != null and limit != null">
+            limit #{start},#{limit}
+        </if>
+    </select>
 
-	<select id="findAllByFilterCount" parameterType="Map" resultType="int">
-		select count(id)
-		<include refid="from_xxx" />
-		<include refid="where_xxx" />
-	</select>
+    <select id="findAllByFilterCount" parameterType="Map" resultType="int">
+        select count(id)
+        <include refid="from_xxx"/>
+        <include refid="where_xxx"/>
+    </select>
 
-	<update id="update" parameterType="cn.springboot.model.auth.UserRole">
-		update t_sys_user_role
-		<set>
-			<if test="userId != null">
-				user_id = #{userId},
-			</if>
-			<if test="roleId != null">
-				role_id = #{roleId}
-			</if>
-		</set>
-		where id = #{id}
-	</update>
+    <update id="update" parameterType="cn.springboot.model.auth.UserRole">
+        update t_sys_user_role
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
-	<delete id="delete" parameterType="string">
-		delete from t_sys_user_role where id in #{id}
-	</delete>
+    <delete id="delete" parameterType="string">
+        delete
+        from t_sys_user_role
+        where id in #{id}
+    </delete>
 
 </mapper>

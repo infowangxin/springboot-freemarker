@@ -3,91 +3,96 @@
 
 <mapper namespace="cn.springboot.mapper.auth.RoleMapper">
 
-	<resultMap id="roleMap" type="cn.springboot.model.auth.Role">
-		<result property="id" column="id" />
-		<result property="name" column="name" />
-		<result property="code" column="code" />
-		<result property="remark" column="remark" />
-	</resultMap>
+    <resultMap id="roleMap" type="cn.springboot.model.auth.Role">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
 
-	<insert id="insert" parameterType="cn.springboot.model.auth.Role">
-		 <![CDATA[ insert into t_sys_role(id , name, code , remark) values(#{id} , #{name} , #{code} , #{remark} ) ]]>
+    <insert id="insert" parameterType="cn.springboot.model.auth.Role">
+		 <![CDATA[
+        insert into t_sys_role(id, name, code, remark)
+        values (#{id}, #{name}, #{code}, #{remark})
+        ]]>
 	</insert>
 
-	<sql id="find_xxx">
+    <sql id="find_xxx">
 	    <![CDATA[
-	    	select id , name , code , remark
-	    ]]>
+        select id, name, code, remark
+        ]]>
 	</sql>
 
-	<sql id="find_as_xxx">
+    <sql id="find_as_xxx">
 	    <![CDATA[
-	    	select r.id , r.name , r.code , r.remark
-	    ]]>
+        select r.id, r.name, r.code, r.remark
+        ]]>
 	</sql>
 
-	<sql id="from_xxx">
+    <sql id="from_xxx">
 	    <![CDATA[
-	    	from t_sys_role
-	    ]]>
+        from t_sys_role
+        ]]>
 	</sql>
 
-	<sql id="where_xxx">
+    <sql id="where_xxx">
 	    <![CDATA[
-	    	where 1=1
-	    ]]>
+        where 1=1
+        ]]>
 	</sql>
 
-	<select id="findById" parameterType="string" resultMap="roleMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		where id=#{id}
-	</select>
+    <select id="findById" parameterType="string" resultMap="roleMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        where id=#{id}
+    </select>
 
-	<select id="findRoleByUserId" parameterType="string" resultMap="roleMap">
-		<include refid="find_as_xxx" />
-		from t_sys_role r , t_sys_user_role ur where r.id=ur.role_id and ur.user_id=#{userId}
-	</select>
+    <select id="findRoleByUserId" parameterType="string" resultMap="roleMap">
+        <include refid="find_as_xxx"/>
+        from t_sys_role r , t_sys_user_role ur where r.id=ur.role_id and ur.user_id=#{userId}
+    </select>
 
-	<select id="findRoleByCode" parameterType="string" resultMap="roleMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		where code=#{code}
-	</select>
+    <select id="findRoleByCode" parameterType="string" resultMap="roleMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        where code=#{code}
+    </select>
 
-	<select id="findAllByFilter" parameterType="Map" resultMap="roleMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		<include refid="where_xxx" />
-		<if test="start != null and limit != null">
-			limit #{start},#{limit}
-		</if>
-	</select>
+    <select id="findAllByFilter" parameterType="Map" resultMap="roleMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        <include refid="where_xxx"/>
+        <if test="start != null and limit != null">
+            limit #{start},#{limit}
+        </if>
+    </select>
 
-	<select id="findAllByFilterCount" parameterType="Map" resultType="int">
-		select count(id)
-		<include refid="from_xxx" />
-		<include refid="where_xxx" />
-	</select>
+    <select id="findAllByFilterCount" parameterType="Map" resultType="int">
+        select count(id)
+        <include refid="from_xxx"/>
+        <include refid="where_xxx"/>
+    </select>
 
-	<update id="update" parameterType="cn.springboot.model.auth.Role">
-		update t_sys_role
-		<set>
-			<if test="name != null">
-				name = #{name},
-			</if>
-			<if test="code != null">
-				code = #{code},
-			</if>
-			<if test="remark != null">
-				remark = #{remark}
-			</if>
-		</set>
-		where id = #{id}
-	</update>
+    <update id="update" parameterType="cn.springboot.model.auth.Role">
+        update t_sys_role
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="remark != null">
+                remark = #{remark}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
-	<delete id="delete" parameterType="string">
-		delete from t_sys_role where id=#{id}
-	</delete>
+    <delete id="delete" parameterType="string">
+        delete
+        from t_sys_role
+        where id = #{id}
+    </delete>
 
 </mapper>

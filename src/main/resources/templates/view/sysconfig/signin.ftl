@@ -34,13 +34,13 @@
             <!--------当前位置----->
             <div class="row  border-bottom white-bg page-heading">
                 <div class="col-sm-4">
-                    <h2>屋瓴账号管理</h2>
+                    <h2>公司账号管理</h2>
                     <ol class="breadcrumb">
                         <li>
                             <a href="${ctx}/index">管理首页</a>
                         </li>
                         <li class="active">
-                            屋瓴账号管理
+                            公司账号管理
                         </li>
 
                     </ol>
@@ -161,7 +161,8 @@
     <!-- 全局 scripts -->
     <script src="${ctx}/static/js/jquery-2.1.1.js"></script>
     <script src="${ctx}/static/js/bootstrap.js"></script>
-    <script src="${ctx}/static/js/wuling.js"></script>
+    <script> var ctx = '${ctx}';</script>
+<script src="${ctx}/static/js/menu-support.js"></script>
     <script src="${ctx}/static/js/plugins/pace/pace.min.js"></script>
 
     <script src="${ctx}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>

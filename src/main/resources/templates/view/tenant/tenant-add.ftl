@@ -176,7 +176,8 @@
 	<!-- 全局 scripts -->
 	<script src="${ctx}/static/js/jquery-2.1.1.js"></script>
 	<script src="${ctx}/static/js/bootstrap.js"></script>
-	<script src="${ctx}/static/js/wuling.js"></script>
+	<script> var ctx = '${ctx}';</script>
+<script src="${ctx}/static/js/menu-support.js"></script>
 	<script src="${ctx}/static/js/plugins/pace/pace.min.js"></script>
 	<script src="${ctx}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="${ctx}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -306,11 +307,11 @@
            }).off('filepreupload').on('filepreupload', function() {
                return alert("确定要上传文件吗？")
            })
-           
+
              .on("filepredelete",function(event,key){
                console.log(event,key);
              })
-             
+
              .on('fileuploaderror', function(event, data, previewId, index) {
                  var form = data.form,
                  files = data.files,
@@ -319,11 +320,11 @@
                  reader = data.reader;
                  //console.log(data)
              })
-             
+
              .on('fileuploaded',function(event, data, previewId, index){
-           
+
              })
-             
+
              .on('filezoomshow', function(event, params) {
                console.log('File zoom show ', params.sourceEvent, params.previewId, params.modal);
              });       */

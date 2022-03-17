@@ -1,42 +1,76 @@
 package cn.springboot.model.auth;
 
 import cn.springboot.model.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 
-/** 
- * @Description 菜单对象
- * @author 王鑫 
- * @date Apr 12, 2017 9:10:38 AM  
+/**
+ * 菜单对象
+ *
+ * @author 胡桃夹子
+ * @date 2022/3/15 14:13
  */
+@TableName("t_sys_permission")
 public class Permission implements BaseEntity<String> {
 
     private static final long serialVersionUID = -7141829387338999544L;
 
+    /**
+     * 主键
+     */
+    @TableId("id")
     private String id;
 
-    /** 菜单名称 **/
+    /**
+     * 菜单名
+     */
+    @TableField("name")
     private String name;
 
-    /** 菜单样式图标名称 **/
+    /**
+     * 菜单样式图标名
+     */
+    @TableField("css_class")
     private String cssClass;
 
-    /** 菜单编码 **/
-    private String key;
-
-    /** 菜单是否显示 **/
-    private Integer hide;
-    
-    /** 菜单级别，最多三级 **/
-    private Integer lev;
-
-    /** URL **/
+    /**
+     * 菜单相对URL
+     */
+    @TableField("url")
     private String url;
 
-    /** 显示顺序 **/
-    private Integer sort;
+    /**
+     * 菜单KEY
+     */
+    @TableField("skey")
+    private String skey;
 
-    /** 父菜单编码 **/
+    /**
+     * 父菜单KEY
+     */
+    @TableField("parent_key")
     private String parentKey;
 
+    /**
+     * 是否显示：1=有效，0=无效
+     */
+    @TableField("hide")
+    private Integer hide;
+
+    /**
+     * 菜单级别，最多只能有3级
+     */
+    @TableField("lev")
+    private Integer lev;
+
+    /**
+     * 菜单排序
+     */
+    @TableField("sort")
+    private Integer sort;
+
+    @Override
     public String getId() {
         return id;
     }
@@ -61,12 +95,12 @@ public class Permission implements BaseEntity<String> {
         this.cssClass = cssClass;
     }
 
-    public String getKey() {
-        return key;
+    public String getSkey() {
+        return skey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setSkey(String skey) {
+        this.skey = skey;
     }
 
     public Integer getHide() {
@@ -76,7 +110,7 @@ public class Permission implements BaseEntity<String> {
     public void setHide(Integer hide) {
         this.hide = hide;
     }
-    
+
     public Integer getLev() {
         return lev;
     }

@@ -34,10 +34,10 @@
 			<!--------当前位置----->
 			<div class="row  border-bottom white-bg page-heading">
 				<div class="col-sm-4">
-					<h2>屋瓴账号管理</h2>
+					<h2>公司账号管理</h2>
 					<ol class="breadcrumb">
 						<li><a href="${ctx}/static/index.html">管理首页</a></li>
-						<li class="active">屋瓴账号管理</li>
+						<li class="active">公司账号管理</li>
 
 					</ol>
 				</div>
@@ -72,7 +72,7 @@
 								<label class="col-sm-12 col-md-5 col-lg-3 control-label"><span class="text-danger">*</span> 短信前缀 </label>
 
 								<div class="col-sm-12 col-md-6 col-lg-8">
-									<input type="text" id="smsPrefix" name="smsPrefix" value="上海屋瓴" placeholder="短信前缀" class="form-control" required>
+									<input type="text" id="smsPrefix" name="smsPrefix" value="上海公司" placeholder="短信前缀" class="form-control" required>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
@@ -150,13 +150,13 @@
 							<div class="form-group">
 								<label class="col-sm-12 col-md-5 col-lg-3 control-label"><span class="text-danger">*</span> Push home consultant app account </label>
 								<div class="col-sm-12 col-md-6 col-lg-8">
-									<input type="text" id="jpushManagerKey" name="jpushManagerKey" value="4fab4e17d7c2c18c317d9a07" placeholder="jpush屋瓴通app账号" class="form-control" required>
+									<input type="text" id="jpushManagerKey" name="jpushManagerKey" value="4fab4e17d7c2c18c317d9a07" placeholder="jpush公司通app账号" class="form-control" required>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-12 col-md-5 col-lg-3 control-label"><span class="text-danger">*</span> Jpush Wu Ling Tong app password </label>
 								<div class="col-sm-12 col-md-6 col-lg-8">
-									<input type="text" id="jpushManagerPwd" name="jpushManagerPwd" value="200fae7853ceb3bbefb1f2a0" placeholder="jpush屋瓴通app密码" class="form-control" required>
+									<input type="text" id="jpushManagerPwd" name="jpushManagerPwd" value="200fae7853ceb3bbefb1f2a0" placeholder="jpush公司通app密码" class="form-control" required>
 								</div>
 							</div>
 
@@ -199,7 +199,8 @@
 	<script src="${ctx}/static/js/bootstrap.js"></script>
 	<script src="${ctx}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 	<script src="${ctx}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="${ctx}/static/js/wuling.js"></script>
+	<script> var ctx = '${ctx}';</script>
+<script src="${ctx}/static/js/menu-support.js"></script>
 	<script src="${ctx}/static/js/plugins/pace/pace.min.js"></script>
 	<!-- 插件 scripts -->
 	<script src="${ctx}/static/js/plugins/toastr/toastr.min.js"></script>

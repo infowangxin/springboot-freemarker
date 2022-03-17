@@ -1,24 +1,42 @@
 package cn.springboot.model.auth;
 
 import cn.springboot.model.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 
-/** 
- * @Description 用户与角色关系对象
- * @author 王鑫 
- * @date Apr 12, 2017 9:11:56 AM  
+
+/**
+ * 用户与角色关系对象
+ *
+ * @author 胡桃夹子
+ * @date 2022/3/15 14:11
  */
+@TableName("t_sys_user_role")
 public class UserRole implements BaseEntity<String> {
 
     private static final long serialVersionUID = -56720255622342923L;
 
+
+    /**
+     * 主键
+     */
+    @TableId("id")
     private String id;
 
-    /** 用户ID **/
-    private String userId;
-
-    /** 角色ID **/
+    /**
+     * 角色表主键
+     */
+    @TableField("role_id")
     private String roleId;
 
+    /**
+     * 用户表主键
+     */
+    @TableField("user_id")
+    private String userId;
+
+    @Override
     public String getId() {
         return id;
     }

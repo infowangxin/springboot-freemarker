@@ -3,148 +3,174 @@
 
 <mapper namespace="cn.springboot.mapper.auth.UserMapper">
 
-	<resultMap id="userMap" type="cn.springboot.model.auth.User">
-		<result column="id" property="id" />
-		<result column="email" property="email" />
-		<result column="username" property="username" />
-		<result column="true_name" property="trueName" />
-		<result column="password" property="password" />
-		<result column="salt" property="salt" />
-		<result column="status" property="status" />
-		<result column="organize_id" property="organizeId" />
-		<result column="create_time" property="createTime" />
-		<result column="last_login_time" property="lastLoginTime" />
-		<result column="modify_time" property="modifyTime" />
-	</resultMap>
-	
-	<insert id="insert" parameterType="cn.springboot.model.auth.User">
-		insert into t_sys_user (id , create_time , email , last_login_time ,  modify_time , username , organize_id , `password` , salt , `status` , true_name)
-		values(#{id} , #{createTime} , #{email} , #{lastLoginTime} , #{modifyTime} , #{username} , #{organizeId} , #{password} , #{salt} , #{status} , #{trueName})
-	</insert>
+    <resultMap id="userMap" type="cn.springboot.model.auth.User">
+        <result column="id" property="id"/>
+        <result column="email" property="email"/>
+        <result column="username" property="username"/>
+        <result column="true_name" property="trueName"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="status" property="status"/>
+        <result column="organize_id" property="organizeId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_login_time" property="lastLoginTime"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
 
-	<sql id="find_xxx">
+    <insert id="insert" parameterType="cn.springboot.model.auth.User">
+        insert into t_sys_user (id, create_time, email, last_login_time, modify_time, username, organize_id, `password`, salt, `status`, true_name)
+        values (#{id}, #{createTime}, #{email}, #{lastLoginTime}, #{modifyTime}, #{username}, #{organizeId}, #{password}, #{salt}, #{status}, #{trueName})
+    </insert>
+
+    <sql id="find_xxx">
 	    <![CDATA[
-			select id , create_time , email , last_login_time ,  modify_time , username , organize_id , `password` , salt , `status` , true_name
-	    ]]>
+        select id,
+               create_time,
+               email,
+               last_login_time,
+               modify_time,
+               username,
+               organize_id,
+               `password`,
+               salt,
+               `status`,
+               true_name
+        ]]>
 	</sql>
 
-	<sql id="from_xxx">
+    <sql id="from_xxx">
 	    <![CDATA[
-	    	from t_sys_user
-	    ]]>
+        from t_sys_user
+        ]]>
 	</sql>
 
-	<sql id="where_xxx">
+    <sql id="where_xxx">
 	    <![CDATA[
-	    	where 1=1
-	    ]]>
+        where 1=1
+        ]]>
 	</sql>
 
-	<select id="findById" parameterType="string" resultMap="userMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		<![CDATA[
+    <select id="findById" parameterType="string" resultMap="userMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        <![CDATA[
 			where id=#{id}
 		]]>
-	</select>
+    </select>
 
-	<select id="findUserByName" parameterType="string" resultMap="userMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		<![CDATA[
+    <select id="findUserByName" parameterType="string" resultMap="userMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        <![CDATA[
 			where username=#{username}
 		]]>
-	</select>
+    </select>
 
-	<select id="findUserByShop" parameterType="string" resultMap="userMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		<![CDATA[
+    <select id="findUserByShop" parameterType="string" resultMap="userMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        <![CDATA[
 			where organize_id=#{organizeId}
 		]]>
-	</select>
-	
-	<select id="findUserByRoleCode" parameterType="string"  resultMap="userMap">
-		select u.id , u.create_time , u.email , u.last_login_time ,  u.modify_time , u.username , u.organize_id , u.`password` , u.salt , u.`status` , u.true_name 
-		from t_sys_user u, t_sys_role r, t_sys_user_role ur
-		where u.id=ur.user_id and r.id=ur.role_id and r.code=#{roleCode}
-	</select>
-	
-	<select id="findEmp" parameterType="string" resultMap="userMap">
-		<include refid="find_xxx" />
-		<![CDATA[
-			from t_sys_user u , t_sys_user_role ur , t_sys_role r 
-			where u.id=ur.user_id and ur.role_id=r.id 
+    </select>
+
+    <select id="findUserByRoleCode" parameterType="string" resultMap="userMap">
+        select u.id,
+               u.create_time,
+               u.email,
+               u.last_login_time,
+               u.modify_time,
+               u.username,
+               u.organize_id,
+               u.`password`,
+               u.salt,
+               u.`status`,
+               u.true_name
+        from t_sys_user u,
+             t_sys_role r,
+             t_sys_user_role ur
+        where u.id = ur.user_id
+          and r.id = ur.role_id
+          and r.code = #{roleCode}
+    </select>
+
+    <select id="findEmp" parameterType="string" resultMap="userMap">
+        <include refid="find_xxx"/>
+        <![CDATA[
+			from t_sys_user u , t_sys_user_role ur , t_sys_role r
+			where u.id=ur.user_id and ur.role_id=r.id
 			and r.code=#{roleCode}
 			and u.status=#{status}
 		]]>
-		<if test="shopId != null">
-			and u.organize_id=#{shopId}
-		</if>
-		<if test="empName != null">
-			and u.username like '%'||#{empName}||'%'
-		</if>
-	</select>
+        <if test="shopId != null">
+            and u.organize_id=#{shopId}
+        </if>
+        <if test="empName != null">
+            and u.username like '%'||#{empName}||'%'
+        </if>
+    </select>
 
-	<select id="findUsers" resultMap="userMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-	</select>
+    <select id="findUsers" resultMap="userMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+    </select>
 
-	<update id="update" parameterType="cn.springboot.model.auth.User">
-		update t_sys_user
-		<set>
-			<if test="email != null">
-				email = #{email},
-			</if>
-			<if test="username != null">
-				username = #{username},
-			</if>
-			<if test="trueName != null">
-				true_name = #{trueName},
-			</if>
-			<if test="password != null">
-				password = #{password},
-			</if>
-			<if test="salt != null">
-				salt = #{salt},
-			</if>
-			<if test="status != null">
-				status = #{status},
-			</if>
-			<if test="organizeId != null">
-				organize_id = #{organizeId},
-			</if>
-			<if test="createTime != null">
-				create_time = #{createTime},
-			</if>
-			<if test="lastLoginTime != null">
-				last_login_time = #{lastLoginTime},
-			</if>
-			<if test="modifyTime != null">
-				modify_time = #{modifyTime}
-			</if>
-		</set>
-		where id = #{id}
-	</update>
+    <update id="update" parameterType="cn.springboot.model.auth.User">
+        update t_sys_user
+        <set>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="trueName != null">
+                true_name = #{trueName},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="salt != null">
+                salt = #{salt},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="organizeId != null">
+                organize_id = #{organizeId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time = #{lastLoginTime},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
-	<select id="findAllByFilter" parameterType="Map" resultMap="userMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		<include refid="where_xxx" />
-		<if test="start != null and limit != null">
-			limit #{start},#{limit}
-		</if>
-	</select>
+    <select id="findAllByFilter" parameterType="Map" resultMap="userMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        <include refid="where_xxx"/>
+        <if test="start != null and limit != null">
+            limit #{start},#{limit}
+        </if>
+    </select>
 
-	<select id="findAllByFilterCount" parameterType="Map" resultType="int">
-		select count(id)
-		<include refid="from_xxx" />
-		<include refid="where_xxx" />
-	</select>
+    <select id="findAllByFilterCount" parameterType="Map" resultType="int">
+        select count(id)
+        <include refid="from_xxx"/>
+        <include refid="where_xxx"/>
+    </select>
 
-	<delete id="delete" parameterType="string">
-		delete from t_sys_user where id=#{id}
-	</delete>
+    <delete id="delete" parameterType="string">
+        delete
+        from t_sys_user
+        where id = #{id}
+    </delete>
 
 </mapper>

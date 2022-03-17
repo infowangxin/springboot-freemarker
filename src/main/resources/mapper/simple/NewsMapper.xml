@@ -3,86 +3,95 @@
 
 <mapper namespace="cn.springboot.mapper.simple.NewsMapper">
 
-	<resultMap id="newsMap" type="cn.springboot.model.simple.News">
-		<result column="id" property="id" />
-		<result column="address" property="address" />
-		<result column="create_time" property="createTime" />
-		<result column="description" property="description" />
-		<result column="news_time" property="newsTime" />
-		<result column="title" property="title" />
-	</resultMap>
+    <resultMap id="newsMap" type="cn.springboot.model.simple.News">
+        <result column="id" property="id"/>
+        <result column="address" property="address"/>
+        <result column="create_time" property="createTime"/>
+        <result column="description" property="description"/>
+        <result column="news_time" property="newsTime"/>
+        <result column="title" property="title"/>
+    </resultMap>
 
-	<insert id="insert" parameterType="cn.springboot.model.simple.News">
-		insert into t_news(id , address , create_time , description , news_time , title) values(#{id} , #{address} , #{createTime} , #{description} , #{newsTime} , #{title})
-	</insert>
+    <insert id="insert" parameterType="cn.springboot.model.simple.News">
+        insert into t_news(id, address, create_time, description, news_time, title)
+        values (#{id}, #{address}, #{createTime}, #{description}, #{newsTime}, #{title})
+    </insert>
 
-	<sql id="find_xxx">
+    <sql id="find_xxx">
 	    <![CDATA[
-			select id , address , create_time , description , news_time , title 
-	    ]]>
+        select id, address, create_time, description, news_time, title
+        ]]>
 	</sql>
 
-	<sql id="from_xxx">
+    <sql id="from_xxx">
 	    <![CDATA[
-	    	from t_news
-	    ]]>
+        from t_news
+        ]]>
 	</sql>
 
-	<sql id="where_xxx">
+    <sql id="where_xxx">
 	    <![CDATA[
-	    	where 1=1
-	    ]]>
+        where 1=1
+        ]]>
 	</sql>
 
-	<select id="findById" parameterType="string" resultMap="newsMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		<![CDATA[
+    <select id="findById" parameterType="string" resultMap="newsMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        <![CDATA[
 			where id=#{id}
 		]]>
-	</select>
+    </select>
 
-	<select id="findNewsByKeywords" parameterType="string" resultMap="newsMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		<where>
-			<if test="keywords != null and keywords != ''"> title like '%${keywords}%'</if>
-		</where>
-	</select>
+    <select id="findNewsByKeywords" parameterType="string" resultMap="newsMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        <where>
+            <if test="keywords != null and keywords != ''">
+                <bind name="pattern" value="'%' + _parameter.keywords + '%'"/>
+                title like #{pattern}
+            </if>
+        </where>
+    </select>
 
-	<select id="findNewsByPage" parameterType="string" resultMap="newsMap">
-		<include refid="find_xxx" />
-		<include refid="from_xxx" />
-		<where>
-			<if test="keywords != null and keywords != ''"> like '%${keywords}%'</if>
-		</where>
-		order by create_time desc
-	</select>
+    <select id="findNewsByPage" parameterType="string" resultMap="newsMap">
+        <include refid="find_xxx"/>
+        <include refid="from_xxx"/>
+        <where>
+            <if test="keywords != null and keywords != ''">
+                <bind name="pattern" value="'%' + _parameter.keywords + '%'"/>
+                title like #{pattern}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
 
-	<update id="update" parameterType="cn.springboot.model.simple.News">
-		update t_news
-		<set>
-			<if test="address != null and address!='' ">
-				address = #{address},
-			</if>
-			<if test="createTime != null">
-				create_time = #{createTime},
-			</if>
-			<if test="description != null and description!='' ">
-				description = #{description},
-			</if>
-			<if test="newsTime != null">
-				news_time = #{newsTime},
-			</if>
-			<if test="title != null and title!='' ">
-				title = #{title},
-			</if>
-		</set>
-		where id = #{id}
-	</update>
+    <update id="update" parameterType="cn.springboot.model.simple.News">
+        update t_news
+        <set>
+            <if test="address != null and address!='' ">
+                address = #{address},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="description != null and description!='' ">
+                description = #{description},
+            </if>
+            <if test="newsTime != null">
+                news_time = #{newsTime},
+            </if>
+            <if test="title != null and title!='' ">
+                title = #{title},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
-	<delete id="delete" parameterType="string">
-		delete from t_news where id=#{id}
-	</delete>
+    <delete id="delete" parameterType="string">
+        delete
+        from t_news
+        where id = #{id}
+    </delete>
 
 </mapper>

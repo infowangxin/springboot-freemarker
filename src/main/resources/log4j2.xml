@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" monitorInterval="60">
+    <!-- monitorInterval="60", 每60秒配置文件会动态加载一次 -->
+
+    <Properties>
+        <!-- 定义变量 -->
+        <Property name="LOG_DIR">./logs</Property>
+        <Property name="ROLLING_FILE_NAME">springboot-freemarker</Property>
+        <Property name="PATTERN_LAYOUT">%d{yyyy/MM/dd HH:mm:ss,SSS} %-6r [%-6p] [%t] %C.%M-(%L) %msg%n</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${PATTERN_LAYOUT}"/>
+        </Console>
+
+        <!-- 按日期，每天备份一个日志 -->
+        <RollingRandomAccessFile name="ROLLING_FILE"
+                                 fileName="${LOG_DIR}/${ROLLING_FILE_NAME}.log"
+                                 filePattern="${LOG_DIR}/${ROLLING_FILE_NAME}.%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${PATTERN_LAYOUT}"/>
+            <Policies>
+                <!-- 每24小时更新一次 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <!-- maxDepth=1，只匹配当前一层目录 -->
+                <Delete basePath="${LOG_DIR}" maxDepth="1">
+                    <IfFileName glob="*.log"/>
+                    <!-- 单位：D、H、M、S，分别表示天、小时、分钟、秒 ，这里配置日志只保留1天-->
+                    <IfLastModified age="15D"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <logger name="cn.springboot" level="DEBUG"/>
+        <logger name="org.springframework.data.convert.CustomConversions" level="ERROR"/>
+
+        <!-- sql log -->
+        <Logger name="org.apache.ibatis.logging.jdbc.BaseJdbcLogger" level="DEBUG"/>
+        <Logger name="org.springframework.jdbc.core.JdbcTemplate" level="DEBUG"/>
+        <logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="DEBUG"/>
+        <Logger name="java.sql.ResultSet" level="DEBUG"/>
+        <Logger name="java.sql.Connection" level="DEBUG"/>
+        <Logger name="java.sql.Statement" level="DEBUG"/>
+        <Logger name="java.sql.PreparedStatement" level="DEBUG"/>
+
+        <!-- Root Logger -->
+        <Root level="INFO">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="ROLLING_FILE"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

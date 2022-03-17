@@ -1,68 +1,62 @@
 package cn.springboot.service.auth;
 
-import java.util.List;
-
 import cn.springboot.model.auth.Role;
 import cn.springboot.model.auth.User;
 
+import java.util.List;
+
+/**
+ * 用户相关接口
+ *
+ * @author 胡桃夹子
+ * @date 2022/3/15 14:18
+ */
 public interface UserService {
 
     /**
      * 新增用户
      *
-     * @param user
-     *            用户
-     * @param organize
-     *            组织
-     * @param role
-     *            角色
+     * @param user 用户
+     * @param role 角色
      */
-    public void addUser(User user, Role role);
+    void addUser(User user, Role role);
 
     /**
      * 修改密码
      *
-     * @param userCommand
-     *            临时用户对象
-     * @param usr
-     *            当前用户
-     * @author wangxin
+     * @param user 当前用户
      */
-    public void updatePassword(User user);
+    void updatePassword(User user);
 
     /**
      * 根据用户名查询用户
      *
-     * @param username
-     *            用户名
+     * @param username 用户名
      * @return user 用户
      */
-    public User findUserByName(String username);
+    User findUserByName(String username);
 
     /**
      * 更新用户登录时间
      *
-     * @param user
-     *            用户
+     * @param user 用户
      */
-    public void updateUserLastLoginTime(User user);
+    void updateUserLastLoginTime(User user);
 
     /**
      * 查询组织下所有客服员工
      *
      * @return
      */
-    public List<User> findUsers();
+    List<User> findUsers();
 
     /**
-     * 根据条件（店铺、名称）查询客服人员
+     * 根据条件（组织、名称）查询用户
      *
-     * @param shopId
-     *            店铺ID
-     * @param empName
-     *            客服人员名称
+     * @param shopId  组织ID
+     * @param empName 用户名称
      * @return
      */
-    public List<User> findEmp(String shopId, String empName);
+    List<User> findEmp(String shopId, String empName);
 
 }

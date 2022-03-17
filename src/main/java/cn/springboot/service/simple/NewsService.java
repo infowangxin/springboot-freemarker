@@ -1,30 +1,29 @@
 package cn.springboot.service.simple;
 
-import java.util.List;
-
-import com.github.pagehelper.PageInfo;
-
+import cn.springboot.framework.datasource.PageInfo;
 import cn.springboot.model.simple.News;
 
-/** 
+import java.util.List;
+
+/**
+ * @author 胡桃夹子
  * @Description 新闻接口类
- * @author 王鑫 
- * @date Mar 16, 2017 5:19:14 PM  
+ * @date Mar 16, 2017 5:19:14 PM
  */
 public interface NewsService {
 
-    public boolean addNews(News news);
+    boolean addNews(News news);
 
-    public boolean editNews(News news);
+    boolean editNews(News news);
 
-    public News findNewsById(String newsId);
+    News findNewsById(String newsId);
 
-    public List<News> findNewsByKeywords(String keywords);
+    List<News> findNewsByKeywords(String keywords);
 
-    public PageInfo<News> findNewsByPage(Integer pageNum, String keywords);
+    PageInfo<News> findNewsByPage(Integer pageNum, String keywords);
 
-    public PageInfo<News> findNewsByPage1(Integer pageNum, String keywords);
+    PageInfo<News> findNewsByPage1(Integer pageNum, String keywords);
 
-    public PageInfo<News> findNewsByPage2(Integer pageNum, String keywords);
+    PageInfo<News> findNewsByPage2(Integer pageNum, String keywords);
 
 }

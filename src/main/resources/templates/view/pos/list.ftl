@@ -94,98 +94,98 @@
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     <tr>
                                         <td>1002</td>
                                         <td>测试－香溢紫郡</td>
                                         <td>香溢紫郡－项目助理</td>
-                                        <td>上海屋瓴</td>
+                                        <td>上海公司</td>
                                         <td class="text-right text-nowrap">起始时间: 2015-09-28 至 2015-09-28</td>
                                     </tr>
                                     </tbody>
@@ -312,7 +312,8 @@
 <!-- 全局 scripts -->
 <script src="${ctx}/static/js/jquery-2.1.1.js"></script>
 <script src="${ctx}/static/js/bootstrap.js"></script>
-<script src="${ctx}/static/js/wuling.js"></script>
+<script> var ctx = '${ctx}';</script>
+<script src="${ctx}/static/js/menu-support.js"></script>
 <script src="${ctx}/static/js/plugins/pace/pace.min.js"></script>
 <script src="${ctx}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${ctx}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>

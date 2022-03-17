@@ -145,7 +145,8 @@
     <!-- 全局 scripts -->
     <script src="${ctx}/static/js/jquery-2.1.1.js"></script>
     <script src="${ctx}/static/js/bootstrap.js"></script>
-    <script src="${ctx}/static/js/wuling.js"></script>
+    <script> var ctx = '${ctx}';</script>
+<script src="${ctx}/static/js/menu-support.js"></script>
     <script src="${ctx}/static/js/plugins/pace/pace.min.js"></script>
     <script src="${ctx}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="${ctx}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -153,7 +154,7 @@
     <script src="${ctx}/static/js/plugins/toastr/toastr.min.js" async></script><!---顶部弹出提示--->
     <script src="${ctx}/static/js/plugins/fileinput/fileinput.min.js" ></script><!---文件上传--->
     <script src="${ctx}/static/js/plugins/fileinput/fileinput_locale_zh.js" ></script><!---文件上传中文配置--->
-    
+
     <script>
     var _ctx = "${ctx}";
 $(function(){
@@ -191,8 +192,8 @@ $(function(){
                 ]];
             var file2=new UploadPhoto(classid,imgItems[num]);
         }
-    
-        
+
+
 });
 function UploadPhoto(classid,imgArr){
     $("#addFile"+classid).fileinput({

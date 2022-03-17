@@ -1,0 +1,123 @@
+management:
+  endpoints:
+    web:
+      base-path: /rest/actuator
+      exposure:
+        include: '*'
+server:
+  shutdown: graceful   # 优雅停服务，在容器关闭时，web服务器将不再接收新请求，并将等待活动请求完成的缓冲期。从springboot2.3.0引入的新特性
+  servlet:
+    context-path: /springboot-freemarker
+  port: 8090
+
+spring:
+  servlet:
+    multipart:
+      max-request-size: 200MB
+      max-file-size: 200MB
+  main:
+    allow-bean-definition-overriding: true # 解决bean重复定义。设置为true，后定义bean覆盖之前定义相同名称的bean。springboot2.0.4开始支持，默认为rue；springboot2.1.0开始默认false
+  #    allow-circular-references: true # 开启循环依赖，从springboot2.6.0开始，默认禁止循环依赖
+  application:
+    name: springboot-freemarker # 应用名
+  freemarker:
+    # 模板后缀名
+    suffix: .ftl
+    # 文档类型
+    content-type: text/html
+    # 页面编码
+    charset: UTF-8
+    # 页面缓存：true=开启；false=关闭；
+    cache: false
+    # 设定模板的加载路径，多个以逗号分隔，默认:
+    template-loader-path:  classpath:/templates/
+    # 设置是否允许HttpServletRequest属性覆盖(隐藏)控制器生成的同名模型属性。
+    allow-request-override: false
+    # 设置是否允许HttpSession属性覆盖(隐藏)控制器生成的同名模型属性。
+    allow-session-override: false
+    # 检查模板位置是否存在。
+    check-template-location: true
+    # 为这种技术启用MVC视图解决方案。
+    enabled: true
+    # 设置是否应该在与模板合并之前将所有请求属性添加到模型中。
+    expose-request-attributes: false
+    # 设置是否在与模板合并之前将所有HttpSession属性添加到模型中。
+    expose-session-attributes: false
+    # 设置是否公开RequestContext供Spring宏库使用，名称为“SpringMacroRequestContext”。
+    expose-spring-macro-helpers: true
+    order: 1
+    # 更喜欢文件系统访问模板加载。文件系统访问允许对模板更改进行热检测。
+    prefer-file-system-access: true
+    # 所有视图的RequestContext属性的名称。
+    request-context-attribute: request
+    settings:
+      # 解决前台使用${}赋值值为空的情况
+      classic_compatible: true
+      #
+      default_encoding: UTF-8
+      # 检查模板更新延迟时间，设置为0表示立即检查，如果时间大于0会有缓存不方便进行模板测试
+      template_update_delay: 0
+  mvc:
+    static-path-pattern: /static/**
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource                        # 声明为hikari数据源连接池
+#    driver-class-name: com.mysql.jdbc.Driver                        # MYSQL驱动类
+    driver-class-name: org.sqlite.JDBC                              # sqlite驱动类
+    dynamic: # 多数据源
+      hikari:
+        min-idle: 10                                                # 最小空闲连接
+        max-pool-size: 30                                           # 最大连接数
+        idle-timeout: 600000                                        # 连接最小空闲时间(单位:毫秒)，10分钟
+        max-lifetime: 1800000                                       # 连接最大存活时间(单位:毫秒)，30分钟
+        connection-timeout: 30000                                   # 连接池获取连接的最长等待时间(单位:毫秒)，30秒
+        connection-test-query: SELECT 1                             # 验证查询
+      primary: db1                                                  # 设置默认数据源
+      strict: false                                                 # 严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        db1:
+#          username: root
+#          password: root
+#          url: 'jdbc:mysql://localhost:3306/db1?useUnicode=true&characterEncoding=UTF-8&useSSL=false'
+          username:
+          password:
+          # sqlite3 建议使用绝对路径，这里使用的是相对路径
+          url: 'jdbc:sqlite::resource:db/sqlite/db1.sqlite3'
+        db2:
+#          username: root
+#          password: root
+#          url: 'jdbc:mysql://localhost:3306/db2?useUnicode=true&characterEncoding=UTF-8&useSSL=false'
+          username:
+          password:
+          # sqlite3 建议使用绝对路径，这里使用的是相对路径
+          url: 'jdbc:sqlite::resource:db/sqlite/db2.sqlite3'
+mybatis-plus:
+  configuration:
+    default-fetch-size: 100                                  # 每批处理的大小
+    map-underscore-to-camel-case: true                       # 将下划线转为驼峰命名
+
+locks:
+  zookeeper: # zookeeper分布式锁
+    namespace: locks/aplus-support-web  # 锁命名空间
+    #        connect-server: zookeeper01:2181,zookeeper02:2181,zookeeper03:2181    # 连接地址
+    connect-server: zookeeper01:2181    # 连接地址
+    connection-timeout: 30000           # 连接超时时间,30秒
+    session-timeout: 30000              # session会话超时时间,30秒
+app:
+  version: '@version@'
+  white:
+    list-url: # 拦截器白名单地址
+      - /static
+      - /error
+      - /403
+      - /404
+      - /500
+      - /
+      - /index
+      - /secret
+      - /cust
+      - /swagger-ui
+      - /v3/api-docs
+      - /doc
+
+logging:
+  config: classpath:log4j2.xml

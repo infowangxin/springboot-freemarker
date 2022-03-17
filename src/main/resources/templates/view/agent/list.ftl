@@ -219,7 +219,8 @@
 <script src="${ctx}/static/js/bootstrap.js"></script>
 <script src="${ctx}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="${ctx}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="${ctx}/static/js/wuling.js"></script>
+<script> var ctx = '${ctx}';</script>
+<script src="${ctx}/static/js/menu-support.js"></script>
 <script src="${ctx}/static/js/plugins/pace/pace.min.js"></script>
 
 <!-- 插件 scripts -->

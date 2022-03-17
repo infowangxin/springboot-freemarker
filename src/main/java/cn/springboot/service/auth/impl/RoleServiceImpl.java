@@ -1,17 +1,8 @@
 package cn.springboot.service.auth.impl;
 
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import cn.springboot.common.exception.BusinessException;
-import cn.springboot.config.db.pk.FactoryAboutKey;
-import cn.springboot.config.db.pk.TableEnum;
+import cn.springboot.framework.exception.BusinessException;
+import cn.springboot.framework.pk.FactoryAboutKey;
+import cn.springboot.framework.pk.TableEnum;
 import cn.springboot.mapper.auth.PermissionMapper;
 import cn.springboot.mapper.auth.RoleMapper;
 import cn.springboot.mapper.auth.RolePermissionMapper;
@@ -19,11 +10,24 @@ import cn.springboot.model.auth.Permission;
 import cn.springboot.model.auth.Role;
 import cn.springboot.model.auth.RolePermission;
 import cn.springboot.service.auth.RoleService;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@Service("roleService")
+import java.util.List;
+
+/**
+ * 角色相关接口
+ *
+ * @author 胡桃夹子
+ * @date 2022/3/15 14:17
+ */
+@Service
 public class RoleServiceImpl implements RoleService {
 
-    private final static Logger log = LoggerFactory.getLogger(RoleServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RoleServiceImpl.class);
 
     @Autowired
     private RoleMapper roleMapper;
@@ -34,13 +38,13 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RolePermissionMapper rolePermissionMapper;
 
-    @Transactional
+    @Override
     public void addRole(Role role) {
         if (role == null || StringUtils.isBlank(role.getName())) {
             return;
         }
-        if (log.isDebugEnabled()) {
-            log.debug("## 添加角色 : {}", role.getName());
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("## 添加角色 : {}", role.getName());
         }
         Role r = findRoleByCode(role.getCode());
         if (r == null) {
@@ -51,9 +55,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findRoleByCode(String code) {
-        if (log.isDebugEnabled()) {
-            log.debug("## 根据编码查询角色 :　{}", code);
-        }
+        LOG.debug("## 根据编码查询角色 {}", code);
         return roleMapper.findRoleByCode(code);
     }
 
@@ -62,16 +64,15 @@ public class RoleServiceImpl implements RoleService {
         return roleMapper.findRoleByUserId(userId);
     }
 
-    @Transactional
     @Override
     public void addRolePermission(String roleCode, String permissionKey) {
         Role role = findRoleByCode(roleCode);
         if (role == null) {
-            throw new BusinessException("role-fail","## 给角色授权失败， 角色编码错误");
+            throw new BusinessException("role-fail", "## 给角色授权失败， 角色编码错误");
         }
         Permission permis = permissionMapper.findPermissionByKey(permissionKey);
         if (permis == null) {
-            throw new BusinessException("role-fail","## 给角色授权失败， 菜单KEY不存在，key="+permissionKey);
+            throw new BusinessException("role-fail", "## 给角色授权失败， 菜单KEY不存在，key=" + permissionKey);
         }
 
         RolePermission rolePermission = new RolePermission();

@@ -1,6 +1,6 @@
 <div class="sidebar-scroll">
 	<div class="logo">
-		<a href="index.html"><img src="${ctx }/static/images/logo_icon.png" alt="">示例系统</a>
+		<a href="${ctx}/index"><img src="${ctx }/static/images/logo_icon.png" alt="">示例系统</a>
 	</div>
 	<div class="sidebar-collapse">
 		<div class="nav-header" id="side-head">
