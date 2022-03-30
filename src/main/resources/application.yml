@@ -99,7 +99,7 @@ locks:
   zookeeper: # zookeeper分布式锁
     namespace: locks/aplus-support-web  # 锁命名空间
     #        connect-server: zookeeper01:2181,zookeeper02:2181,zookeeper03:2181    # 连接地址
-    connect-server: zookeeper01:2181    # 连接地址
+    connect-server: 127.0.0.1:2181    # 连接地址
     connection-timeout: 30000           # 连接超时时间,30秒
     session-timeout: 30000              # session会话超时时间,30秒
 app:

@@ -66,6 +66,10 @@ public class NewsController {
     @ResponseBody
     public Map<String, String> add(@ModelAttribute("newsForm") News news) {
         boolean flag = newsService.addNews(news);
+        return getResultMap(flag);
+    }
+
+    private Map<String, String> getResultMap(boolean flag) {
         Map<String, String> result = new HashMap<>();
         if (flag) {
             result.put("status", "1");
@@ -100,15 +104,7 @@ public class NewsController {
     @ResponseBody
     public Map<String, String> edit(@ModelAttribute("newsForm") News news) {
         boolean flag = newsService.editNews(news);
-        Map<String, String> result = new HashMap<>();
-        if (flag) {
-            result.put("status", "1");
-            result.put("msg", "发布成功");
-        } else {
-            result.put("status", "0");
-            result.put("msg", "发布失败");
-        }
-        return result;
+        return getResultMap(flag);
     }
 
     @GetMapping("/news/list")

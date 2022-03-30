@@ -58,21 +58,20 @@ public class LoginController {
             LOG.info("对用户[{}]进行登录验证..验证通过", username);
         } catch (UnknownAccountException uae) {
             LOG.error("对用户[{}]进行登录验证..验证未通过,未知账户", username);
-            redirectAttributes.addFlashAttribute("message", "未知账户");
+            setRedirectAttributes(redirectAttributes, "未知账户");
         } catch (IncorrectCredentialsException ice) {
             LOG.error("对用户[{}]进行登录验证..验证未通过,错误的凭证", username);
-            redirectAttributes.addFlashAttribute("message", "密码不正确");
+            setRedirectAttributes(redirectAttributes, "密码不正确");
         } catch (LockedAccountException lae) {
             LOG.error("对用户[{}]进行登录验证..验证未通过,账户已锁定", username);
-            redirectAttributes.addFlashAttribute("message", "账户已锁定");
+            setRedirectAttributes(redirectAttributes, "账户已锁定");
         } catch (ExcessiveAttemptsException eae) {
             LOG.error("对用户[{}]进行登录验证..验证未通过,错误次数过多", username);
-            redirectAttributes.addFlashAttribute("message", "用户名或密码错误次数过多");
+            setRedirectAttributes(redirectAttributes, "用户名或密码错误次数过多");
         } catch (AuthenticationException ae) {
             // 通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景
             LOG.error("对用户[{}]进行登录验证..验证未通过,堆栈轨迹如下", username);
-            ae.printStackTrace();
-            redirectAttributes.addFlashAttribute("message", "用户名或密码不正确");
+            setRedirectAttributes(redirectAttributes, "用户名或密码不正确");
         }
         // 验证是否登录成功
         if (currentUser.isAuthenticated()) {
@@ -82,6 +81,10 @@ public class LoginController {
             token.clear();
             return "redirect:/login";
         }
+    }
+
+    private void setRedirectAttributes(RedirectAttributes redirectAttributes, String message) {
+        redirectAttributes.addFlashAttribute("message", message);
     }
 
     @GetMapping("/logout")

@@ -11,9 +11,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +44,7 @@ public class PermissionServiceImpl implements PermissionService {
         List<Permission> permissions = permissionMapper.findPermissionByUserId(userId);
 
         if (CollectionUtils.isEmpty(permissions)) {
-            return null;
+            return Collections.emptyList();
         }
 
         if (CollectionUtils.isNotEmpty(permissions)) {
@@ -85,7 +85,7 @@ public class PermissionServiceImpl implements PermissionService {
 
             return new ArrayList<>(oneMap.values());
         } else {
-            return null;
+            return Collections.emptyList();
         }
     }
 
@@ -116,7 +116,6 @@ public class PermissionServiceImpl implements PermissionService {
         }
     }
 
-    @Transactional(rollbackFor = BusinessException.class)
     @Override
     public void addPermission(Permission permission) {
         if (permission == null || StringUtils.isBlank(permission.getSkey()) || StringUtils.isBlank(permission.getName())) {

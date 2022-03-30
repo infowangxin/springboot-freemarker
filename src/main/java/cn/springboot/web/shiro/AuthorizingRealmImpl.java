@@ -117,7 +117,7 @@ public class AuthorizingRealmImpl extends AuthorizingRealm {
             permissions = (Set<String>) permisObj;
         }
 
-        Set<String> roleCodes = new HashSet<String>();
+        Set<String> roleCodes = new HashSet<>();
         Object roleNameObj = session.getAttribute(Constants.ROLE_CODE);
         if (null == roleNameObj) {
             for (Role role : roleService.findRoleByUserId(principal.getUser().getId())) {
