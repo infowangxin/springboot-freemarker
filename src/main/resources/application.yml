@@ -90,6 +90,11 @@ spring:
 #          password:
           # sqlite3 建议使用绝对路径，这里使用的是相对路径
 #          url: 'jdbc:sqlite::resource:db/sqlite/db2.sqlite3'
+#  ldap:
+#    urls: ldap://127.0.0.1:389
+#    base: OU=公司名称,DC=nutcracker,DC=com,DC=cn
+#    username: admin
+#    password: 123
 mybatis-plus:
   configuration:
     default-fetch-size: 100                                  # 每批处理的大小
@@ -97,7 +102,7 @@ mybatis-plus:
 
 locks:
   zookeeper: # zookeeper分布式锁
-    namespace: locks/aplus-support-web  # 锁命名空间
+    namespace: locks/springboot-freemarker  # 锁命名空间
     #        connect-server: zookeeper01:2181,zookeeper02:2181,zookeeper03:2181    # 连接地址
     connect-server: 127.0.0.1:2181    # 连接地址
     connection-timeout: 30000           # 连接超时时间,30秒

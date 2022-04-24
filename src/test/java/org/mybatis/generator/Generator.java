@@ -32,7 +32,7 @@ public class Generator {
     private static final String AUTHOR = "胡桃夹子";
 
     //设置父包名
-    private static final String PACKAGE_NAME = "com.centaline.framework";
+    private static final String PACKAGE_NAME = "cn.springboot.framework";
     //设置父包模块名
     private static final String MODULE_NAME = "info";
     //设置MVC下各个模块的包名

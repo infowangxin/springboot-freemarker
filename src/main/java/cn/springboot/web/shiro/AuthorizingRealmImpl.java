@@ -4,6 +4,7 @@ import cn.springboot.framework.constant.Constants;
 import cn.springboot.framework.exception.BusinessException;
 import cn.springboot.model.auth.Role;
 import cn.springboot.model.auth.User;
+import cn.springboot.service.LdapService;
 import cn.springboot.service.auth.PermissionService;
 import cn.springboot.service.auth.RoleService;
 import cn.springboot.service.auth.UserService;
@@ -50,6 +51,9 @@ public class AuthorizingRealmImpl extends AuthorizingRealm {
     @Autowired
     private PermissionService permissionService;
 
+    @Autowired
+    private LdapService ldapService;
+
     /**
      * 认证回调函数,登录时调用.
      */
@@ -62,6 +66,8 @@ public class AuthorizingRealmImpl extends AuthorizingRealm {
 
             UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
             String username = token.getUsername();
+            String password = String.valueOf(token.getPassword());
+            log.debug("# username={}, password={}", username, password);
 
             if (StringUtils.isBlank(username)) {
                 log.error("## 非法登录 .");
@@ -73,6 +79,12 @@ public class AuthorizingRealmImpl extends AuthorizingRealm {
                 log.error("## 用户不存在={} .", username);
                 throw new BusinessException("账号或密码错误");
             }
+
+            //boolean areYouOk = ldapService.authenticate(username, password);
+            //log.debug("# areYouOk={}", areYouOk);
+            //if (!areYouOk) {
+            //    throw new BusinessException("LDAP认证失败，账号或密码错误");
+            //}
 
             byte[] salt = Encodes.decodeHex(user.getSalt());
 
