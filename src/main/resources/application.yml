@@ -7,7 +7,7 @@ management:
 server:
   shutdown: graceful   # 优雅停服务，在容器关闭时，web服务器将不再接收新请求，并将等待活动请求完成的缓冲期。从springboot2.3.0引入的新特性
   servlet:
-    context-path: /springboot-freemarker
+    context-path: /
   port: 8090
 
 spring:
